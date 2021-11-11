@@ -1,10 +1,10 @@
 import { Modal, Button, Image, Form, Icon, Label } from "semantic-ui-react"
 import { forwardRef, useImperativeHandle, useRef, useState } from "react"
-import { dataURIToBlob } from "../../../helpers/common-helper";
+import { dataURIToBlob } from "../helpers/common-helper"
 
-const ModifyStoreModal = forwardRef((props, ref) => {
+const StoreProfileModal = forwardRef((props, ref) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState(null)
   const inputFileRef = useRef(null)
 
   useImperativeHandle(ref, () => ({
@@ -16,12 +16,12 @@ const ModifyStoreModal = forwardRef((props, ref) => {
   const chooseFile = e => {
     /*Selected files data can be collected here.*/
     console.log(e.target.files)
-    const fr = new FileReader();
+    const fr = new FileReader()
     fr.onload = function () {
-      setImg(fr.result);
+      setImg(fr.result)
     }
 
-    fr.readAsDataURL(e.target.files[0]);
+    fr.readAsDataURL(e.target.files[0])
   }
   const requestChooseFile = () => {
     /*Collecting node-element and performing click*/
@@ -29,27 +29,30 @@ const ModifyStoreModal = forwardRef((props, ref) => {
   }
 
   const saveProfile = () => {
-    const formData = new FormData(document.getElementById("update_shop_form"));
+    const formData = new FormData(document.getElementById("update_shop_form"))
 
     if (!img && props.shopData.image) {
-      formData.delete("Logo");
+      formData.delete("Logo")
       const file = dataURIToBlob(props.shopData.image)
 
-      formData.append("Logo", file);
+      formData.append("Logo", file)
     }
 
-    props.updateProfile(formData);
+    props.updateProfile(formData)
 
-    setIsOpen(false);
-    setImg(null);
+    setIsOpen(false)
+    setImg(null)
   }
 
   const { name, phoneNumber, image } = props.shopData
-  const imageSrc = img ? img : `data:image/png;base64, ${image}`;
+  const imageSrc = img ? img : `data:image/png;base64, ${image}`
 
   return (
     <Modal
-      onClose={() => { setImg(null); setIsOpen(false); }}
+      onClose={() => {
+        setImg(null)
+        setIsOpen(false)
+      }}
       onOpen={() => setIsOpen(true)}
       open={isOpen}
       className="store-modify-modal"
@@ -65,7 +68,11 @@ const ModifyStoreModal = forwardRef((props, ref) => {
             </Form.Field>
             <Form.Field>
               <label>Phone Number</label>
-              <input placeholder="Phone" name="NewPhoneNumber" defaultValue={phoneNumber} />
+              <input
+                placeholder="Phone"
+                name="NewPhoneNumber"
+                defaultValue={phoneNumber}
+              />
             </Form.Field>
             <Form.Field>
               <Button
@@ -94,7 +101,13 @@ const ModifyStoreModal = forwardRef((props, ref) => {
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color="black" onClick={() => { setImg(null); setIsOpen(false); }}>
+        <Button
+          color="black"
+          onClick={() => {
+            setImg(null)
+            setIsOpen(false)
+          }}
+        >
           Close
         </Button>
         <Button
@@ -109,4 +122,4 @@ const ModifyStoreModal = forwardRef((props, ref) => {
   )
 })
 
-export default ModifyStoreModal
+export default StoreProfileModal

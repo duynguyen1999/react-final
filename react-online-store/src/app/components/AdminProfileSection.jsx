@@ -3,11 +3,11 @@ import { Button, Grid, Image, Segment } from "semantic-ui-react"
 import { useSelector } from "react-redux"
 import { useShortenUrl } from "react-shorten-url"
 import StoreInformationLabel from "./StoreInformationLabel"
-import ModifyStoreModal from "./../layouts/AdminLayout/RightSideBar/ModifyStoreModal"
 import useToast from "./../hooks/useToast"
-import ShareModal from "../layouts/AdminLayout/RightSideBar/ShareModel"
 import { getShopsDetail } from "../../api/shop.api"
 import { updateShopInfo } from "./../../api/shop.api"
+import ShareModal from "./ShareModal"
+import StoreProfileModal from "./StoreProfileModal"
 
 const AdminProfileSection = () => {
   const authInfo = useSelector(store => store.auth)
@@ -117,11 +117,11 @@ const AdminProfileSection = () => {
         </Grid.Column>
       </Grid>
 
-      <ModifyStoreModal
+      <StoreProfileModal
         updateProfile={updateProfile}
         shopData={shopData}
         ref={modalRef}
-      ></ModifyStoreModal>
+      ></StoreProfileModal>
       <ShareModal ref={shareRef} />
     </>
   )
