@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { Button, Image } from "semantic-ui-react"
-import StoreInforField from "../../components/StoreInforField"
+import StoreInformationLabel from "../../components/StoreInformationLabel"
 import ModifyStoreModal from "./RightSideBar/ModifyStoreModal"
 import { useSelector } from "react-redux"
 import { getShopsDetail, updateShopInfo } from "../../../api/shop.api"
@@ -8,9 +8,6 @@ import useToast from "../../hooks/useToast"
 import { shortLink } from "../../shortLink/shortLink"
 import { useShortenUrl } from 'react-shorten-url';
 import ShareModal from "./RightSideBar/ShareModel"
-
-
-
 
 const RightSideBar = () => {
   const authInfo = useSelector(store => store.auth);
@@ -82,20 +79,20 @@ const RightSideBar = () => {
         target="_blank"
       />
 
-        <StoreInforField
+        <StoreInformationLabel
           icon="linkify"
           title="Link"
           label={linkShop}
           link={linkShop}
-        ></StoreInforField>
+        ></StoreInformationLabel>
    
-      <StoreInforField icon="hashtag" title="ID" label={id}></StoreInforField>
-      <StoreInforField icon="home" title="Name" label={name}></StoreInforField>
-      <StoreInforField
+      <StoreInformationLabel icon="hashtag" title="ID" label={id}></StoreInformationLabel>
+      <StoreInformationLabel icon="home" title="Name" label={name}></StoreInformationLabel>
+      <StoreInformationLabel
         icon="phone"
         title="Phone Number"
         label={phoneNumber}
-      ></StoreInforField>
+      ></StoreInformationLabel>
 
       <Button
         basic

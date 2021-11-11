@@ -7,7 +7,7 @@ const HeaderGuest = () => {
   const [activeItem] = useState(null)
 
   return (
-    <Menu className="header" pointing secondary widths={5}>
+    <Menu fixed="top" widths={5} inverted>
       <Menu.Item></Menu.Item>
       <Menu.Item
         name="profile"

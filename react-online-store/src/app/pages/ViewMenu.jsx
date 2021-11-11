@@ -1,5 +1,5 @@
 import MenuDetailModal from "./ViewMenu/MenuDetailModal"
-import MenuItemList from "../components/MenuItemList"
+import StoreMenu from "../components/StoreMenu"
 import SectionHeader from "../components/SectionHeader"
 import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
@@ -77,7 +77,7 @@ const ViewMenu = () => {
         addItem={() => addItem()}
       ></SectionHeader>
       {menuItems && (
-        <MenuItemList items={menuItems} viewOrder={viewOrder} deleteItem={deleteItem}></MenuItemList>
+        <StoreMenu items={menuItems} viewOrder={viewOrder} deleteItem={deleteItem}></StoreMenu>
       )}
 
       <MenuDetailModal ref={modalRef} onSaveItem={saveItem}></MenuDetailModal>

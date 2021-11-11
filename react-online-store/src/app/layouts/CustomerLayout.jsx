@@ -26,9 +26,12 @@ const CustomerLayoutRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props => (
-        <CustomerLayout>
-          <Component {...props} />
-        </CustomerLayout>
+        <Container>
+          <HeaderGuest></HeaderGuest>
+          <Container style={{ marginTop: "5em" }}>
+            <Component {...props} />
+          </Container>
+        </Container>
       )}
     />
   )

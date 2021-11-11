@@ -1,5 +1,5 @@
 import { Icon, Label } from "semantic-ui-react"
-const StoreInforField = ({ title, label, link, icon }) => {
+const StoreInformationLabel = ({ title, label, link, icon }) => {
   return (
     <div className="info-field">
       <h5>{title}</h5>
@@ -19,4 +19,4 @@ const StoreInforField = ({ title, label, link, icon }) => {
   )
 }
 
-export default StoreInforField
+export default StoreInformationLabel
