@@ -1,58 +1,60 @@
-import { Button, Divider, Header, Label, List } from "semantic-ui-react"
-import CartItemGroup from "./CartItemGroup"
-import { formatCurrency, formatPercentage } from "./../helpers/number-helper"
+import {
+  Button,
+  Divider,
+  Header,
+  Label,
+  Segment,
+  Sticky,
+} from "semantic-ui-react"
+import CartUser from "./CartUser"
+import { formatCurrency } from "./../helpers/number-helper"
 
-const Cart = ({ cart, submitCart, addToCart, removeFromCart, loading, deliveryInfo, handleChangeDelivery }) => {
-  const { groups, subtotal, discount, total } = cart
+const Cart = ({
+  cart,
+  submitCart,
+  addItem,
+  removeItem,
+  loading,
+  deliveryInfo,
+  handleChangeDelivery,
+}) => {
+  console.log(cart)
+  const { groups, total } = cart
 
   return (
-    <>
-      <Header>Cart</Header>
-
-      <List divided selection>
-        <List.Item>
-          Sub-total
-          <Label horizontal style={{ float: "right" }}>
-            {formatCurrency(subtotal || 0)}
-          </Label>
-        </List.Item>
-        <List.Item>
-          Discount
-          <Label horizontal style={{ float: "right" }}>
-            {formatPercentage(discount * 100 || 0)}
-          </Label>
-        </List.Item>
-        <List.Item className="total">
+    <Sticky>
+      <Segment>
+        <Header>Your Order</Header>
+        {groups &&
+          Object.keys(groups).map(k => (
+            <CartUser
+              key={k}
+              group={groups[k]}
+              addItem={addItem}
+              removeItem={removeItem}
+              deliveryInfo={deliveryInfo}
+              handleChangeDelivery={handleChangeDelivery}
+            ></CartUser>
+          ))}
+        <Divider />
+        <Header as="h5">
           Total
           <Label horizontal style={{ float: "right" }}>
             {formatCurrency(total || 0)}
           </Label>
-        </List.Item>
-      </List>
-      <Button
-        basic
-        content="Place an Order"
-        labelPosition="left"
-        icon="thumbs up outline"
-        color="green"
-        style={{ marginTop: 15, width: "100%" }}
-        onClick={submitCart}
-        loading={loading}
-        disabled={loading}
-      />
-      <Divider></Divider>
-      {groups &&
-        Object.keys(groups).map(k => (
-          <CartItemGroup
-            key={k}
-            group={groups[k]}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
-            deliveryInfo={deliveryInfo}
-            handleChangeDelivery={handleChangeDelivery}
-          ></CartItemGroup>
-        ))}
-    </>
+        </Header>
+        <Button
+          content="Place an Order"
+          labelPosition="left"
+          icon="thumbs up outline"
+          color="grey"
+          style={{ marginTop: 15, width: "100%" }}
+          onClick={submitCart}
+          loading={loading}
+          disabled={loading}
+        />
+      </Segment>
+    </Sticky>
   )
 }
 

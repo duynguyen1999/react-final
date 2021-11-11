@@ -6,66 +6,58 @@ import { useSelector } from "react-redux"
 import { getShopsDetail, updateShopInfo } from "../../../api/shop.api"
 import useToast from "../../hooks/useToast"
 import { shortLink } from "../../shortLink/shortLink"
-import { useShortenUrl } from 'react-shorten-url';
+import { useShortenUrl } from "react-shorten-url"
 import ShareModal from "./RightSideBar/ShareModel"
 
 const RightSideBar = () => {
-  const authInfo = useSelector(store => store.auth);
-  const [shopData, setShop] = useState({});
-  const { toastSuccess } = useToast();
- 
-
+  const authInfo = useSelector(store => store.auth)
+  const [shopData, setShop] = useState({})
+  const { toastSuccess } = useToast()
 
   useEffect(() => {
     getShopsDetail(authInfo.id).then(res => {
-      setShop(res);
+      setShop(res)
     })
   }, [])
 
-  const { id } = authInfo;
+  const { id } = authInfo
   const { image, name, phoneNumber } = shopData
-  const linkShop = `http://localhost:3000/store/${id}`;
+  const linkShop = `http://localhost:3000/store/${id}`
 
-  const { loading, error, data } = useShortenUrl('https://www.npmjs.com/package/react-shorten-url');
-  console.log(data)
+  const { loading, error, data } = useShortenUrl(
+    "https://www.npmjs.com/package/react-shorten-url"
+  )
   // const linkResult =  shortLink(loading, error, data);
-  
-
 
   const modalRef = useRef(null)
   const shareRef = useRef(null)
-  
+
   const viewShopProfile = id => {
     modalRef.current.open(id)
   }
 
-
   const share = () => {
     shareRef.current.open(`http://localhost:3000/store/${id}`)
-   }
+  }
 
-  const copy = () => { }
+  const copy = () => {}
 
-  const link = () =>{}
- 
- 
+  const link = () => {}
 
-  const updateProfile = async (data) => {
+  const updateProfile = async data => {
     data.append("PhoneNumber", authInfo.phone)
 
     if (data.get("NewPhoneNumber") === authInfo.phone) {
-      data.delete("NewPhoneNumber");
+      data.delete("NewPhoneNumber")
     }
 
     try {
-      await updateShopInfo(data);
+      await updateShopInfo(data)
       toastSuccess("Update Shop Infomation Successfuly")
-    } catch {
-
-    }
+    } catch {}
 
     getShopsDetail(authInfo.id).then(res => {
-      setShop(res);
+      setShop(res)
     })
   }
 
@@ -79,15 +71,23 @@ const RightSideBar = () => {
         target="_blank"
       />
 
-        <StoreInformationLabel
-          icon="linkify"
-          title="Link"
-          label={linkShop}
-          link={linkShop}
-        ></StoreInformationLabel>
-   
-      <StoreInformationLabel icon="hashtag" title="ID" label={id}></StoreInformationLabel>
-      <StoreInformationLabel icon="home" title="Name" label={name}></StoreInformationLabel>
+      <StoreInformationLabel
+        icon="linkify"
+        title="Link"
+        label={linkShop}
+        link={linkShop}
+      ></StoreInformationLabel>
+
+      <StoreInformationLabel
+        icon="hashtag"
+        title="ID"
+        label={id}
+      ></StoreInformationLabel>
+      <StoreInformationLabel
+        icon="home"
+        title="Name"
+        label={name}
+      ></StoreInformationLabel>
       <StoreInformationLabel
         icon="phone"
         title="Phone Number"
@@ -124,7 +124,11 @@ const RightSideBar = () => {
         style={{ marginTop: 15, width: "100%" }}
       />
 
-      <ModifyStoreModal updateProfile={updateProfile} shopData={shopData} ref={modalRef}></ModifyStoreModal>
+      <ModifyStoreModal
+        updateProfile={updateProfile}
+        shopData={shopData}
+        ref={modalRef}
+      ></ModifyStoreModal>
       <ShareModal ref={shareRef} />
     </div>
   )

@@ -56,7 +56,7 @@ const Store = () => {
   const addToCart = async id => {
     const findMenu = menuInfo.items.find(i => i.itemId === id)
     const menu = deepClone(findMenu)
-    delete menu.image
+
     const newCart = deepClone(cart)
     if (!newCart.groups[authInfo.id]) {
       newCart.groups[authInfo.id] = {
@@ -66,7 +66,6 @@ const Store = () => {
     } else {
       const { items } = newCart.groups[authInfo.id]
       const found = items.find(i => i.itemId === menu.itemId)
-      console.log(found)
       if (found) {
         found.amount++
       } else {
@@ -157,19 +156,19 @@ const Store = () => {
         <Link to="/">Shop</Link> &gt; {(menuInfo || {}).name}
       </Header>
       <Grid>
-        <Grid.Column width={12}>
+        <Grid.Column width={10}>
           {(menuInfo || {}).items && (
             <StoreMenu items={menuInfo.items} addToCart={addToCart}></StoreMenu>
           )}
         </Grid.Column>
-        <Grid.Column width={4}>
+        <Grid.Column width={6}>
           <Cart
             cart={cart}
             loading={loading}
             deliveryInfo={deliveryInfo}
             submitCart={handleSubmitCart}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
+            addItem={addToCart}
+            removeItem={removeFromCart}
             handleChangeDelivery={handleChangeDelivery}
           ></Cart>
         </Grid.Column>

@@ -1,35 +1,31 @@
-import { Grid, Header, Icon } from "semantic-ui-react"
+import { Button, Icon, Item } from "semantic-ui-react"
 import { formatCurrency } from "./../helpers/number-helper"
 
-const CartItem = ({ item, addToCart, removeFromCart }) => {
-  const { itemName, price, amount, note, itemId } = item
+const CartItem = ({ item, addItem, removeITem }) => {
+  const { itemName, price, amount, itemId, image } = item
   return (
-    <Grid.Row columns={4}>
-      <Grid.Column width={6}>
-        <Header size="tiny" className="cart-item-name">
-          {itemName}
-        </Header>
-        <span className="cart-item-note">{note}</span>
-      </Grid.Column>
-      <Grid.Column width={1}>
-        <span className="cart-minus" onClick={() => removeFromCart(itemId)}>
-          <Icon name="minus" color="red" />
-        </span>
-      </Grid.Column>
-      <Grid.Column width={2}>
-        <span className="cart-quantity">x{amount}</span>
-      </Grid.Column>
-      <Grid.Column width={1}>
-        <span className="cart-plus" onClick={() => addToCart(itemId)}>
-          <Icon name="plus" color="green" />
-        </span>
-      </Grid.Column>
-      <Grid.Column width={4}>
-        <Header size="tiny" className="cart-subtotal">
-          {formatCurrency(price * amount)}
-        </Header>
-      </Grid.Column>
-    </Grid.Row>
+    <Item>
+      <Item.Image size="tiny" src={`data:image/png;base64, ${image}`} />
+      <Item.Content>
+        <Item.Header as="h6">{itemName}</Item.Header>
+        <Item.Meta>
+          <span className="price">
+            {formatCurrency(price)} x {amount}
+          </span>
+        </Item.Meta>
+        <Item.Extra>
+          <Button.Group size="tiny" style={{ width: "100%" }}>
+            <Button negative onClick={() => removeITem(itemId)}>
+              <Icon name="minus" />
+            </Button>
+            <Button.Or />
+            <Button positive onClick={() => addItem(itemId)}>
+              <Icon name="plus" />
+            </Button>
+          </Button.Group>
+        </Item.Extra>
+      </Item.Content>
+    </Item>
   )
 }
 

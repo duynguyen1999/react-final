@@ -10,7 +10,7 @@ import { formatCurrency } from "../helpers/number-helper"
 import dayjs from "dayjs"
 
 const priceRender = params => {
-  return formatCurrency(params.value);
+  return formatCurrency(params.value)
 }
 
 const ViewOrders = () => {
@@ -22,7 +22,11 @@ const ViewOrders = () => {
       { field: "customerPhoneNumber", headerName: "Customer Phone" },
       { field: "totalPrice", cellRenderer: priceRender },
       { field: "status", cellRenderer: "statusCellRenderer" },
-      { field: "orderTime", sort: "desc", cellRenderer: (params) => dayjs(params.value).format("MM/DD/YYYY HH:mm") },
+      {
+        field: "orderTime",
+        sort: "desc",
+        cellRenderer: params => dayjs(params.value).format("MM/DD/YYYY HH:mm"),
+      },
       {
         field: "action",
         pinned: "right",
@@ -44,34 +48,32 @@ const ViewOrders = () => {
   )
 
   // changes, needs to be state
-  const [rowData, setRow] = useState([]);
-  const gridHeight = window.innerHeight;
-  const authInfo = useSelector(store => store.auth);
+  const [rowData, setRow] = useState([])
+  const gridHeight = window.innerHeight
+  const authInfo = useSelector(store => store.auth)
 
   useEffect(() => {
     getShopOrders(authInfo.id).then(res => {
-      setRow(res.orders);
-    });
+      setRow(res.orders)
+    })
   }, [])
 
   const modalRef = useRef(null)
 
   const viewOrder = data => {
-    if (!data) return;
-    (data.itemsInCart || []).forEach(i => {
-      i.total = formatCurrency(i.price * i.amount);
-    });
+    if (!data) return
+    ;(data.itemsInCart || []).forEach(i => {
+      i.total = formatCurrency(i.price * i.amount)
+    })
     modalRef.current.open(data)
   }
 
   const handleUpdateOrderStatus = async data => {
-    await updateOrderStatus(data);
+    await updateOrderStatus(data)
     getShopOrders(authInfo.id).then(res => {
-      setRow(res.orders);
-    });
+      setRow(res.orders)
+    })
   }
-
-  console.log(rowData);
 
   return (
     <>
@@ -93,7 +95,10 @@ const ViewOrders = () => {
           }}
         />
       </div>
-      <OrderDetailModal updateOrderStatus={handleUpdateOrderStatus} ref={modalRef}></OrderDetailModal>
+      <OrderDetailModal
+        updateOrderStatus={handleUpdateOrderStatus}
+        ref={modalRef}
+      ></OrderDetailModal>
     </>
   )
 }

@@ -3,7 +3,7 @@ import StoreMenuItemCard from "./StoreMenuItemCard"
 
 const StoreMenu = ({ items, viewOrder, addToCart, deleteItem }) => {
   return (
-    <Card.Group itemsPerRow={3} centered>
+    <Card.Group itemsPerRow={3}>
       {items.map(item => (
         <StoreMenuItemCard
           key={item.itemId}

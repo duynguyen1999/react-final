@@ -11,19 +11,22 @@ import dayjs from "dayjs"
 import OrderDetailCustomer from "./ViewOrders/OrderDetailCustomer"
 
 const priceRender = params => {
-  return formatCurrency(params.value);
+  return formatCurrency(params.value)
 }
-const ViewOrderCustomer = () =>{
-
-// never changes, so we can use useMemo
-const columnDefs = useMemo(
+const ViewOrderCustomer = () => {
+  // never changes, so we can use useMemo
+  const columnDefs = useMemo(
     () => [
       { field: "orderId", pinned: "left", headerName: "Order Number" },
       { field: "customerName" },
       { field: "customerPhoneNumber", headerName: "Customer Phone" },
       { field: "totalPrice", cellRenderer: priceRender },
       { field: "status", cellRenderer: "statusCellRenderer" },
-      { field: "orderTime", sort: "desc", cellRenderer: (params) => dayjs(params.value).format("MM/DD/YYYY HH:mm") },
+      {
+        field: "orderTime",
+        sort: "desc",
+        cellRenderer: params => dayjs(params.value).format("MM/DD/YYYY HH:mm"),
+      },
       {
         field: "action",
         pinned: "right",
@@ -45,55 +48,59 @@ const columnDefs = useMemo(
   )
 
   // changes, needs to be state
-  const [rowData, setRow] = useState([]);
-  const gridHeight = window.innerHeight;
-  const authInfo = useSelector(store => store.auth);
+  const [rowData, setRow] = useState([])
+  const gridHeight = window.innerHeight
+  const authInfo = useSelector(store => store.auth)
 
   useEffect(() => {
     getOrderByCustomerId(authInfo.id).then(res => {
-      setRow(res.orders);
-    });
+      setRow(res.orders)
+    })
   }, [])
 
   const modalRef = useRef(null)
 
   const viewOrder = data => {
-    if (!data) return;
-    (data.itemsInCart || []).forEach(i => {
-      i.total = formatCurrency(i.price * i.amount);
-    });
+    if (!data) return
+    ;(data.itemsInCart || []).forEach(i => {
+      i.total = formatCurrency(i.price * i.amount)
+    })
     modalRef.current.open(data)
   }
 
   const handleUpdateOrderStatus = async data => {
-    await updateOrderStatus(data);
+    await updateOrderStatus(data)
     getOrderByCustomerId(authInfo.id).then(res => {
-      setRow(res.orders);
-    });
+      setRow(res.orders)
+    })
   }
-  console.log(rowData);
 
-    return (<>
-        <SectionHeader title="View Orders"></SectionHeader>
-        <div
-          className="ag-theme-material grid-order"
-          style={{ height: gridHeight - 150 }}
-        >
-          <AgGridReact
-            reactUi="true"
-            className="ag-theme-material"
-            animateRows="true"
-            columnDefs={columnDefs}
-            defaultColDef={defaultColDef}
-            rowData={rowData}
-            frameworkComponents={{
-              actionCellRenderer: ActionCellRenderer,
-              statusCellRenderer: StatusCellRenderer,
-            }}
-          />
-        </div>
-        <OrderDetailCustomer  updateOrderStatus={handleUpdateOrderStatus} ref={modalRef}></OrderDetailCustomer>
-      </>)
+  return (
+    <>
+      <SectionHeader title="View Orders"></SectionHeader>
+      <div
+        className="ag-theme-material grid-order"
+        style={{ height: gridHeight - 150 }}
+      >
+        <AgGridReact
+          reactUi="true"
+          className="ag-theme-material"
+          animateRows="true"
+          columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
+          rowData={rowData}
+          frameworkComponents={{
+            actionCellRenderer: ActionCellRenderer,
+            statusCellRenderer: StatusCellRenderer,
+          }}
+        />
+      </div>
+      <OrderDetailCustomer
+        updateOrderStatus={handleUpdateOrderStatus}
+        ref={modalRef}
+      ></OrderDetailCustomer>
+    </>
+  )
 }
 
-export default ViewOrderCustomer;
+export default ViewOrderCustomer

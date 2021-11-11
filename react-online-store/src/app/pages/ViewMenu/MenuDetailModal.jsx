@@ -1,12 +1,12 @@
 import { Modal, Button, Image, Form, Icon, Label } from "semantic-ui-react"
 import { forwardRef, useImperativeHandle, useRef, useState } from "react"
-import { dataURIToBlob } from "../../helpers/common-helper";
+import { dataURIToBlob } from "../../helpers/common-helper"
 
 const MenuDetailModal = forwardRef((props, ref) => {
   const [isOpen, setIsOpen] = useState(false)
   const [menu, setItem] = useState({})
   const inputFileRef = useRef(null)
-  const [img, setImg] = useState(null);
+  const [img, setImg] = useState(null)
 
   useImperativeHandle(ref, () => ({
     open(item) {
@@ -22,14 +22,12 @@ const MenuDetailModal = forwardRef((props, ref) => {
 
   const chooseFile = e => {
     /*Selected files data can be collected here.*/
-    console.log(e.target.files)
-
-    const fr = new FileReader();
+    const fr = new FileReader()
     fr.onload = function () {
-      setImg(fr.result);
+      setImg(fr.result)
     }
 
-    fr.readAsDataURL(e.target.files[0]);
+    fr.readAsDataURL(e.target.files[0])
   }
 
   const requestChooseFile = () => {
@@ -38,23 +36,23 @@ const MenuDetailModal = forwardRef((props, ref) => {
   }
 
   const saveItem = () => {
-    const formData = new FormData(document.getElementById("item_form_modal"));
+    const formData = new FormData(document.getElementById("item_form_modal"))
 
     if (!img && menu.image) {
-      formData.delete("Image");
+      formData.delete("Image")
       const file = dataURIToBlob(menu.image)
 
-      formData.append("Image", file);
+      formData.append("Image", file)
     }
 
-    props.onSaveItem(formData);
+    props.onSaveItem(formData)
 
-    setIsOpen(false);
-    setImg(null);
+    setIsOpen(false)
+    setImg(null)
   }
 
-  const { image, name, price, description, itemId } = menu;
-  const imgSrc = image ? `data:image/png;base64, ${image}` : null;
+  const { image, name, price, description, itemId } = menu
+  const imgSrc = image ? `data:image/png;base64, ${image}` : null
 
   return (
     <Modal
@@ -75,18 +73,31 @@ const MenuDetailModal = forwardRef((props, ref) => {
             />
             <Modal.Description>
               <Form size={"small"} id="item_form_modal">
-                <input style={{ display: "none" }} name="ItemId" readOnly value={itemId} />
+                <input
+                  style={{ display: "none" }}
+                  name="ItemId"
+                  readOnly
+                  value={itemId}
+                />
                 <Form.Field>
                   <label>Name</label>
                   <input placeholder="Name" name="Name" defaultValue={name} />
                 </Form.Field>
                 <Form.Field>
                   <label>Price</label>
-                  <input placeholder="Price" name="Price" defaultValue={price} />
+                  <input
+                    placeholder="Price"
+                    name="Price"
+                    defaultValue={price}
+                  />
                 </Form.Field>
                 <Form.Field>
                   <label>Description</label>
-                  <textarea placeholder="Description" name="Description" defaultValue={description} />
+                  <textarea
+                    placeholder="Description"
+                    name="Description"
+                    defaultValue={description}
+                  />
                 </Form.Field>
                 <Form.Field>
                   <Button
