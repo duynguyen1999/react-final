@@ -78,13 +78,10 @@ const ViewOrders = () => {
   return (
     <>
       <SectionHeader title="View Orders"></SectionHeader>
-      <div
-        className="ag-theme-material grid-order"
-        style={{ height: gridHeight - 150 }}
-      >
+      <div className="ag-theme-alpine" style={{ height: gridHeight - 150 }}>
         <AgGridReact
           reactUi="true"
-          className="ag-theme-material"
+          className="ag-theme-alpine"
           animateRows="true"
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useHistory } from "react-router"
-import { Icon, Image, Menu } from "semantic-ui-react"
+import { Icon, Menu } from "semantic-ui-react"
 
 const HeaderGuest = () => {
   const history = useHistory()
@@ -12,12 +12,16 @@ const HeaderGuest = () => {
       <Menu.Item
         name="profile"
         active={activeItem === "profile"}
-        onClick={() => history.push("/store/view-oders")}
+        onClick={() => history.push("/history")}
       >
-        <Icon size={"small"} name="list" /> ViewOrders
+        <Icon size={"small"} name="list" /> History
       </Menu.Item>
-      <Menu.Item onClick={() => history.push("/store")}>
-        <Image src="/logo/logo32.png" />
+      <Menu.Item
+        name="stores"
+        active={activeItem === "stores"}
+        onClick={() => history.push("/store")}
+      >
+        <Icon size={"small"} name="home" /> Stores
       </Menu.Item>
       <Menu.Item
         name="logoff"

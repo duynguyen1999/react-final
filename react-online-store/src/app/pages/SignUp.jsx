@@ -101,7 +101,7 @@ const Login = () => {
       <Grid columns="equal">
         <Grid.Column></Grid.Column>
         <Grid.Column width={6}>
-          <Segment raised>
+          <Segment basic>
             <Label as="a" style={{ width: "100%" }} onClick={toggleView}>
               <Icon name="question circle" /> {label}
             </Label>
@@ -140,7 +140,7 @@ const Login = () => {
               color="grey"
               onClick={signIn}
             >
-              <Icon name="user" /> Already a member. Sign In
+              <Icon name="user" /> Already a member? Sign In
             </Label>
           </Segment>
         </Grid.Column>

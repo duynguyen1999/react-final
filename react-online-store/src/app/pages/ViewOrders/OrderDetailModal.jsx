@@ -2,7 +2,7 @@ import { forwardRef, useImperativeHandle, useMemo, useState } from "react"
 import { Button, Grid, Modal } from "semantic-ui-react"
 import dayjs from "dayjs"
 import { AgGridReact } from "ag-grid-react/lib/agGridReact"
-import OrderInforField from "./../../components/OrderInforField"
+import OrderInformationField from "../../components/OrderInformationField"
 import { formatCurrency } from "../../helpers/number-helper"
 
 const priceRender = params => {
@@ -95,44 +95,44 @@ const OrderDetailModal = forwardRef((props, ref) => {
           <div className="order-info">
             <Grid container>
               <Grid.Column width={2}>
-                <OrderInforField
+                <OrderInformationField
                   title="Order No"
                   label={orderId}
-                ></OrderInforField>
+                ></OrderInformationField>
               </Grid.Column>
               <Grid.Column width={3}>
-                <OrderInforField
+                <OrderInformationField
                   title="Order Time"
                   label={dayjs(orderTime).format("MM/DD/YYYY HH:mm")}
-                ></OrderInforField>
+                ></OrderInformationField>
               </Grid.Column>
               <Grid.Column width={2}>
-                <OrderInforField
+                <OrderInformationField
                   title="Customer Name"
                   label={customerName}
-                ></OrderInforField>
+                ></OrderInformationField>
               </Grid.Column>
               <Grid.Column width={2}>
-                <OrderInforField
+                <OrderInformationField
                   title="Customer Phone"
                   label={customerPhoneNumber}
-                ></OrderInforField>
+                ></OrderInformationField>
               </Grid.Column>
               <Grid.Column width={5}>
-                <OrderInforField
+                <OrderInformationField
                   title="Total Price"
                   label={formatCurrency(totalPrice)}
-                ></OrderInforField>
+                ></OrderInformationField>
               </Grid.Column>
             </Grid>
           </div>
           <div
-            className="order-items ag-theme-material"
+            className="order-items ag-theme-alpine"
             style={{ height: 240 }}
           >
             <AgGridReact
               reactUi="true"
-              className="ag-theme-material"
+              className="ag-theme-alpine"
               animateRows="true"
               columnDefs={columnDefs}
               defaultColDef={defaultColDef}

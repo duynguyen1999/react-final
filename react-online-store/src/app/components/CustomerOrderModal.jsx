@@ -1,9 +1,9 @@
 import { forwardRef, useImperativeHandle, useMemo, useState } from "react"
-import { Button, Grid, Modal } from "semantic-ui-react"
+import { Button, Container, Grid, Modal, Segment } from "semantic-ui-react"
 import dayjs from "dayjs"
 import { AgGridReact } from "ag-grid-react/lib/agGridReact"
-import OrderInforField from "./../../components/OrderInforField"
-import { formatCurrency } from "../../helpers/number-helper"
+import OrderInformationField from "./OrderInformationField"
+import { formatCurrency } from "../helpers/number-helper"
 
 const priceRender = params => {
   return formatCurrency(params.value)
@@ -39,7 +39,7 @@ const renderNextStatusButton = status => {
   return { color, label }
 }
 
-const OrderDetailCustomer = forwardRef((props, ref) => {
+const CustomerOrderModal = forwardRef((props, ref) => {
   const [isOpen, setIsOpen] = useState(false)
   const [order, setOrder] = useState({})
 
@@ -52,7 +52,7 @@ const OrderDetailCustomer = forwardRef((props, ref) => {
 
   const columnDefs = useMemo(
     () => [
-      { field: "itemName", minWidth: 100, headerName: "Name" },
+      { field: "itemName", headerName: "Name" },
       { field: "price", cellRenderer: priceRender },
       { field: "amount", headerName: "Quantity" },
       { field: "total" },
@@ -91,71 +91,65 @@ const OrderDetailCustomer = forwardRef((props, ref) => {
     props.updateOrderStatus(payload)
     setIsOpen(false)
   }
+
   return (
     <Modal
       onClose={() => setIsOpen(false)}
       onOpen={() => setIsOpen(true)}
       open={isOpen}
+      size={"large"}
     >
       <Modal.Header>{`Order #${orderId}`}</Modal.Header>
-      <Modal.Content image>
+      <Modal.Content>
         <Modal.Description>
-          <div className="order-info">
-            <Grid container>
-              <Grid.Column width={2}>
-                <OrderInforField
+          <Container fluid>
+            <Grid fluid>
+              <Grid.Column width={8}>
+                <OrderInformationField
                   title="Order No"
                   label={orderId}
-                ></OrderInforField>
-              </Grid.Column>
-              <Grid.Column width={3}>
-                <OrderInforField
+                ></OrderInformationField>
+                <OrderInformationField
                   title="Order Time"
                   label={dayjs(orderTime).format("MM/DD/YYYY HH:mm")}
-                ></OrderInforField>
-              </Grid.Column>
-              <Grid.Column width={2}>
-                <OrderInforField
-                  title="Customer Name"
-                  label={customerName}
-                ></OrderInforField>
-              </Grid.Column>
-              <Grid.Column width={2}>
-                <OrderInforField
-                  title="Customer Phone"
-                  label={customerPhoneNumber}
-                ></OrderInforField>
-              </Grid.Column>
-              <Grid.Column width={1}>
-                <OrderInforField
-                  title="Total Price"
-                  label={formatCurrency(totalPrice)}
-                ></OrderInforField>
-              </Grid.Column>
-              <Grid.Column width={3}>
-                <OrderInforField
+                ></OrderInformationField>
+                <OrderInformationField
                   title="Delivery status"
                   label={status}
-                ></OrderInforField>
+                ></OrderInformationField>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <OrderInformationField
+                  title="Customer Name"
+                  label={customerName}
+                ></OrderInformationField>
+                <OrderInformationField
+                  title="Customer Phone"
+                  label={customerPhoneNumber}
+                ></OrderInformationField>
+                <OrderInformationField
+                  title="Total Price"
+                  label={formatCurrency(totalPrice)}
+                ></OrderInformationField>
               </Grid.Column>
             </Grid>
-          </div>
-          <div
-            className="order-items ag-theme-material"
-            style={{ height: 240 }}
-          >
-            <AgGridReact
-              reactUi="true"
-              className="ag-theme-material"
-              animateRows="true"
-              columnDefs={columnDefs}
-              defaultColDef={defaultColDef}
-              enableRangeSelection="true"
-              rowData={itemsInCart}
-              rowSelection="multiple"
-              suppressRowClickSelection="true"
-            />
-          </div>
+          </Container>
+
+          <Segment basic>
+            <div className="ag-theme-alpine" style={{ height: "240px" }}>
+              <AgGridReact
+                reactUi="true"
+                className="ag-theme-alpine"
+                animateRows="true"
+                columnDefs={columnDefs}
+                defaultColDef={defaultColDef}
+                enableRangeSelection="true"
+                rowData={itemsInCart}
+                rowSelection="multiple"
+                suppressRowClickSelection="true"
+              />
+            </div>
+          </Segment>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
@@ -180,4 +174,4 @@ const OrderDetailCustomer = forwardRef((props, ref) => {
   )
 })
 
-export default OrderDetailCustomer
+export default CustomerOrderModal

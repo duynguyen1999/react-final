@@ -1,5 +1,5 @@
 import { AgGridReact } from "ag-grid-react"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import ActionCellRenderer from "./ViewOrders/ActionCellRenderer"
 import StatusCellRenderer from "./ViewOrders/StatusCellRenderer"
 import SectionHeader from "../components/SectionHeader"
@@ -8,25 +8,26 @@ import { getOrderByCustomerId } from "../../api/customer.api"
 import { formatCurrency } from "../helpers/number-helper"
 import { updateOrderStatus } from "../../api/order.api"
 import dayjs from "dayjs"
-import OrderDetailCustomer from "./ViewOrders/OrderDetailCustomer"
+import OrderDetailCustomer from "../components/CustomerOrderModal"
+import { Header } from "semantic-ui-react"
+import { Link } from "react-router-dom"
 
-const priceRender = params => {
-  return formatCurrency(params.value)
-}
-const ViewOrderCustomer = () => {
+const History = () => {
   // never changes, so we can use useMemo
   const columnDefs = useMemo(
     () => [
-      { field: "orderId", pinned: "left", headerName: "Order Number" },
-      { field: "customerName" },
-      { field: "customerPhoneNumber", headerName: "Customer Phone" },
-      { field: "totalPrice", cellRenderer: priceRender },
-      { field: "status", cellRenderer: "statusCellRenderer" },
       {
         field: "orderTime",
         sort: "desc",
         cellRenderer: params => dayjs(params.value).format("MM/DD/YYYY HH:mm"),
       },
+      { field: "shopName", headerName: "Shop Name" },
+      { field: "phoneNumberOfShop", headerName: "Phone Number" },
+      {
+        field: "totalPrice",
+        cellRenderer: params => formatCurrency(params.value),
+      },
+      { field: "status", cellRenderer: "statusCellRenderer" },
       {
         field: "action",
         pinned: "right",
@@ -77,14 +78,13 @@ const ViewOrderCustomer = () => {
 
   return (
     <>
-      <SectionHeader title="View Orders"></SectionHeader>
-      <div
-        className="ag-theme-material grid-order"
-        style={{ height: gridHeight - 150 }}
-      >
+      <Header size="medium">
+        <Link to="/">Shop</Link> &gt; {"History"}
+      </Header>
+      <div className="ag-theme-alpine" style={{ height: gridHeight - 150 }}>
         <AgGridReact
           reactUi="true"
-          className="ag-theme-material"
+          className="ag-theme-alpine"
           animateRows="true"
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
@@ -103,4 +103,4 @@ const ViewOrderCustomer = () => {
   )
 }
 
-export default ViewOrderCustomer
+export default History

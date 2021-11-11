@@ -20,8 +20,8 @@ const Login = () => {
   const history = useHistory()
   const [isShop, setIsShop] = useState(true)
   const { toastSuccess, toastError } = useToast()
-  const [phone, setPhone] = useState("");
-  const dispatch = useDispatch();
+  const [phone, setPhone] = useState("")
+  const dispatch = useDispatch()
 
   const signUp = () => {
     history.push("/sign-up")
@@ -33,24 +33,26 @@ const Login = () => {
 
   const submit = async () => {
     try {
-      const res = await login(phone, isShop);
+      const res = await login(phone, isShop)
 
       toastSuccess("Log in successfully")
 
       if (isShop) {
         //login user
-        dispatch(logIn({ id: res.shopId, phone: res.phoneNumber, isShop }));
+        dispatch(logIn({ id: res.shopId, phone: res.phoneNumber, isShop }))
 
         setTimeout(() => {
           history.push("/admin")
-        }, 500);
+        }, 500)
       } else {
         //login user
-        dispatch(logIn({ id: res.customerId, phone: "", isShop, name: res.name }));
+        dispatch(
+          logIn({ id: res.customerId, phone: "", isShop, name: res.name })
+        )
 
         setTimeout(() => {
-          history.push("/");
-        }, 500);
+          history.push("/")
+        }, 500)
       }
     } catch {
       toastError("Phone number is not exists")
@@ -70,14 +72,18 @@ const Login = () => {
           </Label>
           <Divider />
 
-          <Segment raised>
+          <Segment basic>
             <Form>
               <Form.Field>
                 <label>Phone Number</label>
-                <input placeholder="Phone Number" value={phone} onChange={e => setPhone(e.target.value)} />
+                <input
+                  placeholder="Phone Number"
+                  value={phone}
+                  onChange={e => setPhone(e.target.value)}
+                />
               </Form.Field>
               <Button type="submit" color="green" fluid onClick={submit}>
-                Submit
+                Sign In
               </Button>
             </Form>
 
@@ -89,7 +95,7 @@ const Login = () => {
               style={{ width: "100%" }}
               onClick={signUp}
             >
-              <Icon name="user plus" /> Don't have account? Register now
+              <Icon name="user plus" /> New to us? Sign Up
             </Label>
           </Segment>
         </Grid.Column>

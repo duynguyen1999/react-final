@@ -30,7 +30,7 @@ const StatusCellRenderer = props => {
   }
 
   return (
-    <Label size={"medium"} color={color}>
+    <Label size={"tiny"} color={color}>
       {value}
     </Label>
   )

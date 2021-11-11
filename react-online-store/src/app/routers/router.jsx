@@ -10,7 +10,7 @@ import Store from "../pages/Store"
 import DefaultLayoutRoute from "./../layouts/DefaultLayout"
 import SignIn from "../pages/SignIn"
 import SignUp from "../pages/SignUp"
-import ViewOrderCustomer from "../pages/ViewOrderCustomer"
+import History from "../pages/History"
 
 const Router = () => {
   return (
@@ -28,12 +28,9 @@ const Router = () => {
           component={ViewOrders}
         />
         <AdminLayoutRoute exact path="/admin/view-menu" component={ViewMenu} />
+
         <CustomerLayoutRoute exact path="/store" component={Stores} />
-        <CustomerLayoutRoute
-          exact
-          path="/store/view-oders"
-          component={ViewOrderCustomer}
-        />
+        <CustomerLayoutRoute exact path="/history" component={History} />
         <CustomerLayoutRoute exact path="/store/:id" component={Store} />
 
         <DefaultLayoutRoute exact path="/sign-in" component={SignIn} />
