@@ -26,7 +26,7 @@ const Login = () => {
   const dispatch = useDispatch()
 
   const signUp = () => {
-    history.push("/sign-up")
+    history.push("/auth/sign-up")
   }
 
   const toggleView = activeItem => {

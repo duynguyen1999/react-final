@@ -2,7 +2,7 @@ import StoreMenu from "../components/StoreMenu"
 import AdminSubHeader from "../components/AdminSubHeader"
 import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
-import useHttp from "../hooks/use-http"
+import useHttp from "../hooks/useHttp"
 import {
   addShopItem,
   getShopsDetail,

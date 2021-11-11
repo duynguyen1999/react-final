@@ -28,7 +28,7 @@ const Login = () => {
   const dispatch = useDispatch()
 
   const signIn = () => {
-    history.push("/sign-in")
+    history.push("/auth/sign-in")
   }
 
   const toggleView = activeItem => {

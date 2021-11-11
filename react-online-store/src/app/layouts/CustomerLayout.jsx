@@ -51,7 +51,7 @@ const Header = () => {
       <Menu.Item
         name="logoff"
         active={activeItem === "logoff"}
-        onClick={() => history.push("/sign-in")}
+        onClick={() => history.push("/auth/sign-in")}
       >
         <Icon size={"small"} name="log out" /> Sign Out
       </Menu.Item>
