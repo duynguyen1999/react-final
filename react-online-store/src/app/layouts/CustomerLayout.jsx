@@ -1,33 +1,47 @@
-import { Route } from "react-router"
-import { Container, Grid } from "semantic-ui-react"
-import HeaderGuest from "./../components/HeaderGuest"
+import { useState } from "react"
+import { Route, useHistory } from "react-router"
+import { Container, Icon, Menu } from "semantic-ui-react"
 
-const CustomerLayout = ({ children }) => {
+const Header = () => {
+  const history = useHistory()
+  const [activeItem] = useState(null)
+
   return (
-    <div className="layout__default">
-      <Grid>
-        <Grid.Column width={2}></Grid.Column>
-        <Grid.Column width={12}>
-          <HeaderGuest></HeaderGuest>
-          <Container className="app__content" fluid>
-            <Container fluid className="app__content-wrapper">
-              {children}
-            </Container>
-          </Container>
-        </Grid.Column>
-        <Grid.Column width={2}></Grid.Column>
-      </Grid>
-    </div>
+    <Menu fixed="top" widths={5} inverted>
+      <Menu.Item></Menu.Item>
+      <Menu.Item
+        name="profile"
+        active={activeItem === "profile"}
+        onClick={() => history.push("/history")}
+      >
+        <Icon size={"small"} name="list" /> History
+      </Menu.Item>
+      <Menu.Item
+        name="stores"
+        active={activeItem === "stores"}
+        onClick={() => history.push("/store")}
+      >
+        <Icon size={"small"} name="home" /> Stores
+      </Menu.Item>
+      <Menu.Item
+        name="logoff"
+        active={activeItem === "logoff"}
+        onClick={() => history.push("/sign-in")}
+      >
+        <Icon size={"small"} name="log out" /> Sign Out
+      </Menu.Item>
+      <Menu.Item></Menu.Item>
+    </Menu>
   )
 }
 
-const CustomerLayoutRoute = ({ component: Component, ...rest }) => {
+const CustomerLayout = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={props => (
         <Container>
-          <HeaderGuest></HeaderGuest>
+          <Header></Header>
           <Container style={{ marginTop: "5em" }}>
             <Component {...props} />
           </Container>
@@ -37,4 +51,4 @@ const CustomerLayoutRoute = ({ component: Component, ...rest }) => {
   )
 }
 
-export default CustomerLayoutRoute
+export default CustomerLayout
