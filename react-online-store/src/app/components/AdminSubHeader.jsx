@@ -1,8 +1,8 @@
 import { Breadcrumb, Button, Icon } from "semantic-ui-react"
 
-const SectionHeader = ({ title, addItem }) => {
+const AdminSubHeader = ({ title, addItem }) => {
   return (
-    <div className="section-header">
+    <div className="admin-sub-header">
       <Breadcrumb>
         <Breadcrumb.Section active>{title}</Breadcrumb.Section>
       </Breadcrumb>
@@ -22,4 +22,4 @@ const SectionHeader = ({ title, addItem }) => {
   )
 }
 
-export default SectionHeader
+export default AdminSubHeader

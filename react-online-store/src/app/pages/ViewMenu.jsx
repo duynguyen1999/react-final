@@ -1,6 +1,6 @@
 import MenuDetailModal from "./ViewMenu/MenuDetailModal"
 import StoreMenu from "../components/StoreMenu"
-import SectionHeader from "../components/SectionHeader"
+import AdminSubHeader from "../components/AdminSubHeader"
 import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import useHttp from "../hooks/use-http"
@@ -11,6 +11,9 @@ import {
   deleteShopItem,
 } from "../../api/shop.api"
 import useToast from "../hooks/useToast"
+import AdminSubMenu from "./../components/AdminSubMenu"
+import AdminProfileSection from "../components/AdminProfileSection"
+import { Divider } from "semantic-ui-react"
 
 const ViewMenu = () => {
   const [menuItems, setMenu] = useState([])
@@ -73,12 +76,16 @@ const ViewMenu = () => {
 
   return (
     <>
-      <SectionHeader
+      <AdminProfileSection />
+      <Divider />
+
+      <AdminSubHeader
         title="View Menu"
         addItem={() => addItem()}
-      ></SectionHeader>
+      ></AdminSubHeader>
       {menuItems && (
         <StoreMenu
+          itemCount={5}
           items={menuItems}
           viewOrder={viewOrder}
           deleteItem={deleteItem}

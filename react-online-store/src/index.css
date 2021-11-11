@@ -97,16 +97,16 @@ a.hashtag i {
 }
 
 /* admin section */
-.section-header .ui.breadcrumb {
+.admin-sub-header .ui.breadcrumb {
   font-size: 15px;
   padding-top: 15px;
 }
 
-.section-header button {
+.admin-sub-header button {
   float: right;
 }
 
-.section-header {
+.admin-sub-header {
   margin-bottom: 15px;
   margin-top: 10px;
 }

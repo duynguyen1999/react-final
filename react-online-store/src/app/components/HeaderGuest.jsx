@@ -1,10 +1,13 @@
 import { useState } from "react"
-import { useHistory } from "react-router"
+import { useHistory, useRouteMatch } from "react-router"
 import { Icon, Menu } from "semantic-ui-react"
 
 const HeaderGuest = () => {
   const history = useHistory()
+  const route = useRouteMatch()
   const [activeItem] = useState(null)
+
+  console.log(route)
 
   return (
     <Menu fixed="top" widths={5} inverted>

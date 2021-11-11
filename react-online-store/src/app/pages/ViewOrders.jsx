@@ -3,11 +3,14 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import ActionCellRenderer from "./ViewOrders/ActionCellRenderer"
 import StatusCellRenderer from "./ViewOrders/StatusCellRenderer"
 import OrderDetailModal from "./ViewOrders/OrderDetailModal"
-import SectionHeader from "../components/SectionHeader"
+import AdminSubHeader from "../components/AdminSubHeader"
 import { useSelector } from "react-redux"
 import { getShopOrders, updateOrderStatus } from "../../api/order.api"
 import { formatCurrency } from "../helpers/number-helper"
 import dayjs from "dayjs"
+import AdminSubMenu from "./../components/AdminSubMenu"
+import AdminProfileSection from "../components/AdminProfileSection"
+import { Divider } from "semantic-ui-react"
 
 const priceRender = params => {
   return formatCurrency(params.value)
@@ -49,7 +52,7 @@ const ViewOrders = () => {
 
   // changes, needs to be state
   const [rowData, setRow] = useState([])
-  const gridHeight = window.innerHeight
+  const viewHeight = window.innerHeight
   const authInfo = useSelector(store => store.auth)
 
   useEffect(() => {
@@ -77,8 +80,11 @@ const ViewOrders = () => {
 
   return (
     <>
-      <SectionHeader title="View Orders"></SectionHeader>
-      <div className="ag-theme-alpine" style={{ height: gridHeight - 150 }}>
+      <AdminProfileSection />
+      <Divider />
+
+      <AdminSubHeader title="View Orders"></AdminSubHeader>
+      <div className="ag-theme-alpine" style={{ height: viewHeight - 340 }}>
         <AgGridReact
           reactUi="true"
           className="ag-theme-alpine"

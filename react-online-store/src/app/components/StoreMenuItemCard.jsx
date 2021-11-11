@@ -15,7 +15,7 @@ const StoreMenuItemCard = ({ item, viewOrder, addToCart, deleteItem }) => {
         </Card.Content>
         <Card.Content extra>
           {viewOrder && (
-            <>
+            <Button.Group size="tiny" style={{ width: "100%" }}>
               <Button
                 icon
                 color="blue"
@@ -24,6 +24,7 @@ const StoreMenuItemCard = ({ item, viewOrder, addToCart, deleteItem }) => {
               >
                 <Icon name="pencil" />
               </Button>
+              <Button.Or />
               <Button
                 icon
                 color="red"
@@ -32,7 +33,7 @@ const StoreMenuItemCard = ({ item, viewOrder, addToCart, deleteItem }) => {
               >
                 <Icon name="delete" />
               </Button>
-            </>
+            </Button.Group>
           )}
 
           {addToCart && (

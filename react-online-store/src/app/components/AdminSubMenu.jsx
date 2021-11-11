@@ -1,8 +1,8 @@
-import { Icon, Menu } from "semantic-ui-react"
+import { Icon, Menu, Segment } from "semantic-ui-react"
 import { useState } from "react"
 import { useHistory, useRouteMatch } from "react-router"
 
-const LeftSideBar = () => {
+const AdminSubMenu = () => {
   const history = useHistory()
   const route = useRouteMatch()
   const [activeMenu, setItem] = useState(
@@ -16,8 +16,8 @@ const LeftSideBar = () => {
   }
 
   return (
-    <div className="">
-      <Menu tabular>
+    <Segment inverted>
+      <Menu pointing secondary widths={2} inverted size={"mini"}>
         <Menu.Item
           name="orders"
           active={activeMenu === "orders"}
@@ -36,8 +36,8 @@ const LeftSideBar = () => {
           <Icon name="list alternate outline" /> Menu
         </Menu.Item>
       </Menu>
-    </div>
+    </Segment>
   )
 }
 
-export default LeftSideBar
+export default AdminSubMenu

@@ -20,14 +20,11 @@ const Router = () => {
           <Redirect to="/store" />
         </Route>
         <Route path="/admin" exact>
-          <Redirect to="/admin/view-orders" />
+          <Redirect to="/admin/order" />
         </Route>
-        <AdminLayoutRoute
-          exact
-          path="/admin/view-orders"
-          component={ViewOrders}
-        />
-        <AdminLayoutRoute exact path="/admin/view-menu" component={ViewMenu} />
+
+        <CustomerLayoutRoute exact path="/admin/order" component={ViewOrders} />
+        <CustomerLayoutRoute exact path="/admin/menu" component={ViewMenu} />
 
         <CustomerLayoutRoute exact path="/store" component={Stores} />
         <CustomerLayoutRoute exact path="/history" component={History} />
