@@ -7,8 +7,8 @@ import { formatCurrency } from "../helpers/number-helper"
 import dayjs from "dayjs"
 import AdminProfileSection from "../components/AdminProfileSection"
 import { Divider } from "semantic-ui-react"
-import ActionCellRenderer from "../components/AdminOrders/ActionCellRenderer"
-import StatusCellRenderer from "../components/AdminOrders/StatusCellRenderer"
+import ActionCellRenderer from "../components/cellRenders/ActionCellRenderer"
+import StatusCellRenderer from "../components/cellRenders/StatusCellRenderer"
 import AdminOrderModal from "../components/AdminOrderModal"
 
 const priceRender = params => {

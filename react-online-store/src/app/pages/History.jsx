@@ -8,8 +8,8 @@ import dayjs from "dayjs"
 import CustomerOrderModal from "../components/CustomerOrderModal"
 import { Header } from "semantic-ui-react"
 import { Link } from "react-router-dom"
-import ActionCellRenderer from "../components/AdminOrders/ActionCellRenderer"
-import StatusCellRenderer from "../components/AdminOrders/StatusCellRenderer"
+import ActionCellRenderer from "../components/cellRenders/ActionCellRenderer"
+import StatusCellRenderer from "../components/cellRenders/StatusCellRenderer"
 
 const History = () => {
   // never changes, so we can use useMemo
