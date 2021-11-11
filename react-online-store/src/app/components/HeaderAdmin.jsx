@@ -13,7 +13,7 @@ const HeaderAdmin = () => {
       </Menu.Item>
 
       <Menu.Item
-        position='right'
+        position="right"
         name="logoff"
         active={activeItem === "logoff"}
         onClick={() => history.push("/sign-in")}

@@ -11,6 +11,7 @@ import {
   Divider,
   Label,
   Icon,
+  Menu,
 } from "semantic-ui-react"
 import { registerShop } from "../../api/shop.api"
 import { useDispatch } from "react-redux"
@@ -19,100 +20,112 @@ import { registerCustomer } from "../../api/customer.api"
 
 const Login = () => {
   const history = useHistory()
-  const [isShop, setIsShop] = useState(true)
+  const [isShop, setIsShop] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [invalid, setInvalid] = useState({})
   const { toastSuccess, toastError } = useToast()
-  const dispatch = useDispatch();
+  const [activeItem, setItem] = useState("customer")
+  const dispatch = useDispatch()
 
   const signIn = () => {
     history.push("/sign-in")
   }
 
-  const toggleView = () => {
+  const toggleView = activeItem => {
     setIsShop(!isShop)
+    setItem(activeItem)
   }
 
-  const validateForm = (formData) => {
-    const obj = {};
+  const validateForm = formData => {
+    const obj = {}
     if (formData.get("Name") === "") {
-      obj.name = true;
+      obj.name = true
     }
 
     if (formData.get("PhoneNumber") === "") {
-      obj.phone = true;
+      obj.phone = true
     }
 
-    setInvalid(obj);
+    setInvalid(obj)
 
     if (Object.keys(obj).length > 0) {
-      return false;
+      return false
     }
 
-    return true;
+    return true
   }
 
   const submit = async () => {
-    const formData = new FormData(document.getElementById("register_form"));
+    const formData = new FormData(document.getElementById("register_form"))
 
     if (!validateForm(formData)) {
-      return;
+      return
     }
 
-    setIsLoading(true);
+    setIsLoading(true)
 
     try {
       if (isShop) {
-        const res = await registerShop(formData);
+        const res = await registerShop(formData)
         toastSuccess("Create account successfully")
 
         //login user
-        dispatch(logIn({ id: res.shopId, phone: res.phoneNumber, isShop }));
+        dispatch(logIn({ id: res.shopId, phone: res.phoneNumber, isShop }))
 
         setTimeout(() => {
           history.push("/admin")
-        }, 500);
+        }, 500)
       } else {
-        const res = await registerCustomer(formData);
+        const res = await registerCustomer(formData)
         toastSuccess("Create account successfully")
 
         //login user
-        dispatch(logIn({ id: res.customerId, phone: "", isShop }));
+        dispatch(logIn({ id: res.customerId, phone: "", isShop }))
 
         setTimeout(() => {
-          history.push("/");
-        }, 500);
+          history.push("/")
+        }, 500)
       }
     } catch (err) {
       toastError(err.message)
     }
-    setIsLoading(false);
+    setIsLoading(false)
   }
 
-  const label = isShop
-    ? "Register as a customer?"
-    : "Register as a store owner?"
-  const labelName = isShop ? "Shop Name" : "Customer Name";
-  const fieldName = isShop ? "Logo" : "Avata";
+  const labelName = isShop ? "Shop Name" : "Customer Name"
+  const fieldName = isShop ? "Logo" : "Avatar"
 
   return (
     <Container className="auth-form">
-      <Image src="/logo/logo64.png" centered />
       <Grid columns="equal">
         <Grid.Column></Grid.Column>
         <Grid.Column width={6}>
-          <Segment basic>
-            <Label as="a" style={{ width: "100%" }} onClick={toggleView}>
-              <Icon name="question circle" /> {label}
-            </Label>
-            <Divider />
+          <Menu pointing secondary widths={2}>
+            <Menu.Item
+              name="customer"
+              active={activeItem === "customer"}
+              onClick={() => toggleView("customer")}
+            >
+              <Icon name="user circle" /> Customer
+            </Menu.Item>
 
-            <Form id="register_form" loading={isLoading} >
+            <Menu.Item
+              name="store owner"
+              active={activeItem === "store owner"}
+              onClick={() => toggleView("store owner")}
+            >
+              <Icon name="home" /> Store Owner
+            </Menu.Item>
+          </Menu>
+
+          <Segment>
+            <Form id="register_form" loading={isLoading}>
               <Form.Field>
                 <Form.Input
                   label={labelName}
                   placeholder={labelName}
-                  name="Name" error={invalid.name ? "Please enter Name" : undefined}
+                  name="Name"
+                  error={invalid.name ? "Please enter Name" : undefined}
                 />
               </Form.Field>
               <Form.Field>
@@ -120,7 +133,9 @@ const Login = () => {
                   label="Phone Number"
                   placeholder="Phone Number"
                   name="PhoneNumber"
-                  error={invalid.phone ? "Please enter Phone Number" : undefined}
+                  error={
+                    invalid.phone ? "Please enter Phone Number" : undefined
+                  }
                 />
               </Form.Field>
               <Form.Field>

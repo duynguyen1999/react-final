@@ -4,7 +4,6 @@ import LeftSideBar from "./AdminLayout/LeftSideBar"
 import RightSideBar from "./AdminLayout/RightSideBar"
 import HeaderAdmin from "./../components/HeaderAdmin"
 
-
 const AdminLayout = ({ children }) => {
   return (
     <div className="admin-layout">

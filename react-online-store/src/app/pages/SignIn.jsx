@@ -1,4 +1,4 @@
-import { useHistory } from "react-router"
+import { useHistory, useRouteMatch } from "react-router"
 import { useState } from "react"
 import useToast from "./../hooks/useToast"
 import {
@@ -11,6 +11,7 @@ import {
   Divider,
   Label,
   Icon,
+  Menu,
 } from "semantic-ui-react"
 import { login } from "../../api/shop.api"
 import { useDispatch } from "react-redux"
@@ -18,17 +19,19 @@ import { logIn } from "../store/actions/auth-action"
 
 const Login = () => {
   const history = useHistory()
-  const [isShop, setIsShop] = useState(true)
+  const [isShop, setIsShop] = useState(false)
   const { toastSuccess, toastError } = useToast()
   const [phone, setPhone] = useState("")
+  const [activeItem, setItem] = useState("customer")
   const dispatch = useDispatch()
 
   const signUp = () => {
     history.push("/sign-up")
   }
 
-  const toggleView = () => {
+  const toggleView = activeItem => {
     setIsShop(!isShop)
+    setItem(activeItem)
   }
 
   const submit = async () => {
@@ -59,20 +62,30 @@ const Login = () => {
     }
   }
 
-  const label = isShop ? "Sign in as customer?" : "Sign in as store owner?"
-
   return (
     <Container className="auth-form">
-      <Image src="/logo/logo64.png" centered />
       <Grid columns="equal">
         <Grid.Column></Grid.Column>
         <Grid.Column width={6}>
-          <Label as="a" style={{ width: "100%" }} onClick={toggleView}>
-            <Icon name="question circle" /> {label}
-          </Label>
-          <Divider />
+          <Menu pointing secondary widths={2}>
+            <Menu.Item
+              name="customer"
+              active={activeItem === "customer"}
+              onClick={() => toggleView("customer")}
+            >
+              <Icon name="user circle" /> Customer
+            </Menu.Item>
 
-          <Segment basic>
+            <Menu.Item
+              name="store owner"
+              active={activeItem === "store owner"}
+              onClick={() => toggleView("store owner")}
+            >
+              <Icon name="home" /> Store Owner
+            </Menu.Item>
+          </Menu>
+
+          <Segment>
             <Form>
               <Form.Field>
                 <label>Phone Number</label>

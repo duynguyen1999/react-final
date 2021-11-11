@@ -3,14 +3,16 @@ import { useState } from "react"
 import { useHistory, useRouteMatch } from "react-router"
 
 const LeftSideBar = () => {
-  const history = useHistory();
-  const route = useRouteMatch();
-  const [activeMenu, setItem] = useState(route.path === "/admin/view-orders" ? "orders" : "menu");
+  const history = useHistory()
+  const route = useRouteMatch()
+  const [activeMenu, setItem] = useState(
+    route.path === "/admin/view-orders" ? "orders" : "menu"
+  )
 
   const handleChangeMenu = (name, router) => {
-    if (activeMenu === name) return;
+    if (activeMenu === name) return
     setItem(name)
-    history.push(router);
+    history.push(router)
   }
 
   return (
@@ -18,15 +20,17 @@ const LeftSideBar = () => {
       <Menu tabular>
         <Menu.Item
           name="orders"
-          active={activeMenu === 'orders'}
-          onClick={(e, { name }) => handleChangeMenu(name, "/admin/view-orders")}
+          active={activeMenu === "orders"}
+          onClick={(e, { name }) =>
+            handleChangeMenu(name, "/admin/view-orders")
+          }
         >
           <Icon name="list" /> Orders
         </Menu.Item>
 
         <Menu.Item
           name="menu"
-          active={activeMenu === 'menu'}
+          active={activeMenu === "menu"}
           onClick={(e, { name }) => handleChangeMenu(name, "/admin/view-menu")}
         >
           <Icon name="list alternate outline" /> Menu
