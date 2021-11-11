@@ -1,4 +1,3 @@
-import MenuDetailModal from "./ViewMenu/MenuDetailModal"
 import StoreMenu from "../components/StoreMenu"
 import AdminSubHeader from "../components/AdminSubHeader"
 import { useEffect, useRef, useState } from "react"
@@ -11,11 +10,11 @@ import {
   deleteShopItem,
 } from "../../api/shop.api"
 import useToast from "../hooks/useToast"
-import AdminSubMenu from "./../components/AdminSubMenu"
 import AdminProfileSection from "../components/AdminProfileSection"
 import { Divider } from "semantic-ui-react"
+import AdminMenuItemModal from "../components/AdminMenuItemModal"
 
-const ViewMenu = () => {
+const AdminMenu = () => {
   const [menuItems, setMenu] = useState([])
   const modalRef = useRef(null)
   const authInfo = useSelector(state => state.auth)
@@ -92,9 +91,12 @@ const ViewMenu = () => {
         ></StoreMenu>
       )}
 
-      <MenuDetailModal ref={modalRef} onSaveItem={saveItem}></MenuDetailModal>
+      <AdminMenuItemModal
+        ref={modalRef}
+        onSaveItem={saveItem}
+      ></AdminMenuItemModal>
     </>
   )
 }
 
-export default ViewMenu
+export default AdminMenu

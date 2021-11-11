@@ -4,7 +4,7 @@ import StoreCard from "./StoreCard"
 const StoreList = ({ stores }) => {
   return (
     <Segment>
-      <Card.Group itemsPerRow={3}>
+      <Card.Group itemsPerRow={4}>
         {stores.map(s => (
           <StoreCard key={s.shopId} store={s} />
         ))}

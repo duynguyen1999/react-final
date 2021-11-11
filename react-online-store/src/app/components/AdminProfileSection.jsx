@@ -86,7 +86,7 @@ const AdminProfileSection = () => {
         </Grid.Column>
         <Grid.Column>
           <Button
-            content="Edit Profile"
+            content="Profile Setting"
             labelPosition="left"
             icon="briefcase"
             onClick={viewShopProfile}

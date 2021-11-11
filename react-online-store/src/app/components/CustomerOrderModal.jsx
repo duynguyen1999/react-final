@@ -135,21 +135,22 @@ const CustomerOrderModal = forwardRef((props, ref) => {
             </Grid>
           </Container>
 
-          <Segment basic>
-            <div className="ag-theme-alpine" style={{ height: "240px" }}>
-              <AgGridReact
-                reactUi="true"
-                className="ag-theme-alpine"
-                animateRows="true"
-                columnDefs={columnDefs}
-                defaultColDef={defaultColDef}
-                enableRangeSelection="true"
-                rowData={itemsInCart}
-                rowSelection="multiple"
-                suppressRowClickSelection="true"
-              />
-            </div>
-          </Segment>
+          <div
+            className="ag-theme-alpine"
+            style={{ height: "240px", marginTop: "10px" }}
+          >
+            <AgGridReact
+              reactUi="true"
+              className="ag-theme-alpine"
+              animateRows="true"
+              columnDefs={columnDefs}
+              defaultColDef={defaultColDef}
+              enableRangeSelection="true"
+              rowData={itemsInCart}
+              rowSelection="multiple"
+              suppressRowClickSelection="true"
+            />
+          </div>
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>

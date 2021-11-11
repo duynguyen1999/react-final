@@ -1,22 +1,21 @@
 import { AgGridReact } from "ag-grid-react"
 import { useEffect, useMemo, useRef, useState } from "react"
-import ActionCellRenderer from "./ViewOrders/ActionCellRenderer"
-import StatusCellRenderer from "./ViewOrders/StatusCellRenderer"
-import OrderDetailModal from "./ViewOrders/OrderDetailModal"
 import AdminSubHeader from "../components/AdminSubHeader"
 import { useSelector } from "react-redux"
 import { getShopOrders, updateOrderStatus } from "../../api/order.api"
 import { formatCurrency } from "../helpers/number-helper"
 import dayjs from "dayjs"
-import AdminSubMenu from "./../components/AdminSubMenu"
 import AdminProfileSection from "../components/AdminProfileSection"
 import { Divider } from "semantic-ui-react"
+import ActionCellRenderer from "../components/AdminOrders/ActionCellRenderer"
+import StatusCellRenderer from "../components/AdminOrders/StatusCellRenderer"
+import AdminOrderModal from "../components/AdminOrderModal"
 
 const priceRender = params => {
   return formatCurrency(params.value)
 }
 
-const ViewOrders = () => {
+const AdminOrders = () => {
   // never changes, so we can use useMemo
   const columnDefs = useMemo(
     () => [
@@ -98,12 +97,12 @@ const ViewOrders = () => {
           }}
         />
       </div>
-      <OrderDetailModal
+      <AdminOrderModal
         updateOrderStatus={handleUpdateOrderStatus}
         ref={modalRef}
-      ></OrderDetailModal>
+      ></AdminOrderModal>
     </>
   )
 }
 
-export default ViewOrders
+export default AdminOrders

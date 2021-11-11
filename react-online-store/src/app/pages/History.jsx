@@ -1,15 +1,15 @@
 import { AgGridReact } from "ag-grid-react"
 import { useEffect, useMemo, useRef, useState } from "react"
-import ActionCellRenderer from "./ViewOrders/ActionCellRenderer"
-import StatusCellRenderer from "./ViewOrders/StatusCellRenderer"
 import { useSelector } from "react-redux"
 import { getOrderByCustomerId } from "../../api/customer.api"
 import { formatCurrency } from "../helpers/number-helper"
 import { updateOrderStatus } from "../../api/order.api"
 import dayjs from "dayjs"
-import OrderDetailCustomer from "../components/CustomerOrderModal"
+import CustomerOrderModal from "../components/CustomerOrderModal"
 import { Header } from "semantic-ui-react"
 import { Link } from "react-router-dom"
+import ActionCellRenderer from "../components/AdminOrders/ActionCellRenderer"
+import StatusCellRenderer from "../components/AdminOrders/StatusCellRenderer"
 
 const History = () => {
   // never changes, so we can use useMemo
@@ -94,10 +94,10 @@ const History = () => {
           }}
         />
       </div>
-      <OrderDetailCustomer
+      <CustomerOrderModal
         updateOrderStatus={handleUpdateOrderStatus}
         ref={modalRef}
-      ></OrderDetailCustomer>
+      ></CustomerOrderModal>
     </>
   )
 }

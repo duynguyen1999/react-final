@@ -3,8 +3,8 @@ import { Redirect } from "react-router"
 import AdminLayoutRoute from "./../layouts/AdminLayout"
 import CustomerLayoutRoute from "./../layouts/CustomerLayout"
 import NotFound from "./../pages/404"
-import ViewOrders from "../pages/ViewOrders"
-import ViewMenu from "./../pages/ViewMenu"
+import AdminOrders from "../pages/AdminOrders"
+import AdminMenu from "./../pages/AdminMenu"
 import Stores from "../pages/Stores"
 import Store from "../pages/Store"
 import DefaultLayoutRoute from "./../layouts/DefaultLayout"
@@ -23,8 +23,12 @@ const Router = () => {
           <Redirect to="/admin/order" />
         </Route>
 
-        <CustomerLayoutRoute exact path="/admin/order" component={ViewOrders} />
-        <CustomerLayoutRoute exact path="/admin/menu" component={ViewMenu} />
+        <CustomerLayoutRoute
+          exact
+          path="/admin/order"
+          component={AdminOrders}
+        />
+        <CustomerLayoutRoute exact path="/admin/menu" component={AdminMenu} />
 
         <CustomerLayoutRoute exact path="/store" component={Stores} />
         <CustomerLayoutRoute exact path="/history" component={History} />

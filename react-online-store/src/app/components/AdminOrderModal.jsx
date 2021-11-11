@@ -1,15 +1,15 @@
 import { forwardRef, useImperativeHandle, useMemo, useState } from "react"
-import { Button, Grid, Modal } from "semantic-ui-react"
+import { Button, Container, Grid, Modal, Segment } from "semantic-ui-react"
 import dayjs from "dayjs"
 import { AgGridReact } from "ag-grid-react/lib/agGridReact"
-import OrderInformationField from "../../components/OrderInformationField"
-import { formatCurrency } from "../../helpers/number-helper"
+import OrderInformationField from "./OrderInformationField"
+import { formatCurrency } from "../helpers/number-helper"
 
 const priceRender = params => {
-  return formatCurrency(params.value);
+  return formatCurrency(params.value)
 }
 
-const renderNextStatusButton = (status) => {
+const renderNextStatusButton = status => {
   let color = null
   let label = ""
 
@@ -39,13 +39,13 @@ const renderNextStatusButton = (status) => {
   return { color, label }
 }
 
-const OrderDetailModal = forwardRef((props, ref) => {
+const AdminOrderModal = forwardRef((props, ref) => {
   const [isOpen, setIsOpen] = useState(false)
   const [order, setOrder] = useState({})
 
   useImperativeHandle(ref, () => ({
     open(orderData) {
-      setOrder(orderData);
+      setOrder(orderData)
       setIsOpen(true)
     },
   }))
@@ -55,7 +55,7 @@ const OrderDetailModal = forwardRef((props, ref) => {
       { field: "itemName", minWidth: 100, headerName: "Name" },
       { field: "price", cellRenderer: priceRender },
       { field: "amount", headerName: "Quantity" },
-      { field: "total" }
+      { field: "total" },
     ],
     []
   )
@@ -68,19 +68,29 @@ const OrderDetailModal = forwardRef((props, ref) => {
     []
   )
 
-  const { orderId, customerName, customerPhoneNumber, orderTime, itemsInCart, totalPrice, status, customerId, shopId } = order
-  const nextBtn = renderNextStatusButton(status);
+  const {
+    orderId,
+    customerName,
+    customerPhoneNumber,
+    orderTime,
+    itemsInCart,
+    totalPrice,
+    status,
+    customerId,
+    shopId,
+  } = order
+  const nextBtn = renderNextStatusButton(status)
 
   const changeOrderStatus = () => {
     const payload = {
       orderId,
       customerId,
       shopId,
-      orderStatus: nextBtn.label
-    };
+      orderStatus: nextBtn.label,
+    }
 
-    props.updateOrderStatus(payload);
-    setIsOpen(false);
+    props.updateOrderStatus(payload)
+    setIsOpen(false)
   }
 
   return (
@@ -88,47 +98,46 @@ const OrderDetailModal = forwardRef((props, ref) => {
       onClose={() => setIsOpen(false)}
       onOpen={() => setIsOpen(true)}
       open={isOpen}
+      size={"large"}
     >
       <Modal.Header>{`Order #${orderId}`}</Modal.Header>
-      <Modal.Content image>
+      <Modal.Content>
         <Modal.Description>
-          <div className="order-info">
-            <Grid container>
-              <Grid.Column width={2}>
+          <Container fluid>
+            <Grid fluid>
+              <Grid.Column width={8}>
                 <OrderInformationField
                   title="Order No"
                   label={orderId}
                 ></OrderInformationField>
-              </Grid.Column>
-              <Grid.Column width={3}>
                 <OrderInformationField
                   title="Order Time"
                   label={dayjs(orderTime).format("MM/DD/YYYY HH:mm")}
                 ></OrderInformationField>
+                <OrderInformationField
+                  title="Delivery status"
+                  label={status}
+                ></OrderInformationField>
               </Grid.Column>
-              <Grid.Column width={2}>
+              <Grid.Column width={8}>
                 <OrderInformationField
                   title="Customer Name"
                   label={customerName}
                 ></OrderInformationField>
-              </Grid.Column>
-              <Grid.Column width={2}>
                 <OrderInformationField
                   title="Customer Phone"
                   label={customerPhoneNumber}
                 ></OrderInformationField>
-              </Grid.Column>
-              <Grid.Column width={5}>
                 <OrderInformationField
                   title="Total Price"
                   label={formatCurrency(totalPrice)}
                 ></OrderInformationField>
               </Grid.Column>
             </Grid>
-          </div>
+          </Container>
           <div
-            className="order-items ag-theme-alpine"
-            style={{ height: 240 }}
+            className="ag-theme-alpine"
+            style={{ height: "240px", marginTop: "10px" }}
           >
             <AgGridReact
               reactUi="true"
@@ -148,23 +157,27 @@ const OrderDetailModal = forwardRef((props, ref) => {
         <Button color="black" onClick={() => setIsOpen(false)}>
           Close
         </Button>
-        {status !== "Canceled" && status !== "Delivered" && <Button
-          content="Cancel Order"
-          labelPosition="left"
-          icon="close"
-          onClick={() => setIsOpen(false)}
-          color="red"
-        />}
-        {status !== "Canceled" && status !== "Delivered" && <Button
-          content={nextBtn.label}
-          labelPosition="right"
-          icon="checkmark"
-          onClick={() => changeOrderStatus()}
-          color={nextBtn.color}
-        />}
+        {status !== "Canceled" && status !== "Delivered" && (
+          <Button
+            content="Cancel Order"
+            labelPosition="left"
+            icon="close"
+            onClick={() => setIsOpen(false)}
+            color="red"
+          />
+        )}
+        {status !== "Canceled" && status !== "Delivered" && (
+          <Button
+            content={nextBtn.label}
+            labelPosition="right"
+            icon="checkmark"
+            onClick={() => changeOrderStatus()}
+            color={nextBtn.color}
+          />
+        )}
       </Modal.Actions>
     </Modal>
   )
 })
 
-export default OrderDetailModal
+export default AdminOrderModal

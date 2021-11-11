@@ -54,7 +54,7 @@ const ModifyStoreModal = forwardRef((props, ref) => {
       open={isOpen}
       className="store-modify-modal"
     >
-      <Modal.Header>Modify Store Information</Modal.Header>
+      <Modal.Header>Profile Setting</Modal.Header>
       <Modal.Content image>
         <Image rounded fluid src={imageSrc} wrapped />
         <Modal.Description>

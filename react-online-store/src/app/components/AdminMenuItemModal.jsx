@@ -1,8 +1,8 @@
 import { Modal, Button, Image, Form, Icon, Label } from "semantic-ui-react"
 import { forwardRef, useImperativeHandle, useRef, useState } from "react"
-import { dataURIToBlob } from "../../helpers/common-helper"
+import { dataURIToBlob } from "../helpers/common-helper"
 
-const MenuDetailModal = forwardRef((props, ref) => {
+const AdminMenuItemModal = forwardRef((props, ref) => {
   const [isOpen, setIsOpen] = useState(false)
   const [menu, setItem] = useState({})
   const inputFileRef = useRef(null)
@@ -51,7 +51,7 @@ const MenuDetailModal = forwardRef((props, ref) => {
     setImg(null)
   }
 
-  const { image, name, price, description, itemId } = menu
+  const { image, name, price, itemId } = menu
   const imgSrc = image ? `data:image/png;base64, ${image}` : null
 
   return (
@@ -61,13 +61,12 @@ const MenuDetailModal = forwardRef((props, ref) => {
       open={isOpen}
       className="menu-modify-modal"
     >
-      <Modal.Header>Modify Menu</Modal.Header>
+      <Modal.Header>Modify Menu Item</Modal.Header>
       <Modal.Content image>
         {menu && (
           <>
             <Image
               rounded
-              fluid
               src={img || imgSrc || "https://dummyimage.com/900x900/ecf0f1/aaa"}
               wrapped
             />
@@ -89,14 +88,6 @@ const MenuDetailModal = forwardRef((props, ref) => {
                     placeholder="Price"
                     name="Price"
                     defaultValue={price}
-                  />
-                </Form.Field>
-                <Form.Field>
-                  <label>Description</label>
-                  <textarea
-                    placeholder="Description"
-                    name="Description"
-                    defaultValue={description}
                   />
                 </Form.Field>
                 <Form.Field>
@@ -143,4 +134,4 @@ const MenuDetailModal = forwardRef((props, ref) => {
   )
 })
 
-export default MenuDetailModal
+export default AdminMenuItemModal
