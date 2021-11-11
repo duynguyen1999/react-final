@@ -1,13 +1,15 @@
-import { Card } from "semantic-ui-react"
+import { Card, Segment } from "semantic-ui-react"
 import StoreCard from "./StoreCard"
 
 const StoreList = ({ stores }) => {
   return (
-    <Card.Group itemsPerRow={3}>
-      {stores.map(s => (
-        <StoreCard key={s.shopId} store={s} />
-      ))}
-    </Card.Group>
+    <Segment>
+      <Card.Group itemsPerRow={3}>
+        {stores.map(s => (
+          <StoreCard key={s.shopId} store={s} />
+        ))}
+      </Card.Group>
+    </Segment>
   )
 }
 

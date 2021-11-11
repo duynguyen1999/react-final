@@ -23,7 +23,7 @@ const Cart = ({
 
   return (
     <Sticky>
-      <Segment>
+      <Segment basic>
         <Header>Your Order</Header>
         {groups &&
           Object.keys(groups).map(k => (
