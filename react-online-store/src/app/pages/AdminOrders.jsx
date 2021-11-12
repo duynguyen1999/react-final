@@ -16,6 +16,20 @@ const priceRender = params => {
 }
 
 const AdminOrders = () => {
+
+  // changes, needs to be state
+  const [rowData, setRow] = useState([])
+  const viewHeight = window.innerHeight
+  const authInfo = useSelector(store => store.auth)
+
+  const modalRef = useRef(null)
+
+  useEffect(() => {
+    getShopOrders(authInfo.id).then(res => {
+      setRow(res.orders)
+    })
+  }, [])
+
   // never changes, so we can use useMemo
   const columnDefs = useMemo(
     () => [
@@ -48,25 +62,12 @@ const AdminOrders = () => {
     }),
     []
   )
-
-  // changes, needs to be state
-  const [rowData, setRow] = useState([])
-  const viewHeight = window.innerHeight
-  const authInfo = useSelector(store => store.auth)
-
-  useEffect(() => {
-    getShopOrders(authInfo.id).then(res => {
-      setRow(res.orders)
-    })
-  }, [])
-
-  const modalRef = useRef(null)
-
+  
   const viewOrder = data => {
     if (!data) return
-    ;(data.itemsInCart || []).forEach(i => {
-      i.total = formatCurrency(i.price * i.amount)
-    })
+      ; (data.itemsInCart || []).forEach(i => {
+        i.total = formatCurrency(i.price * i.amount)
+      })
     modalRef.current.open(data)
   }
 

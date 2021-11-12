@@ -27,6 +27,11 @@ const Login = () => {
   const [activeItem, setItem] = useState("customer")
   const dispatch = useDispatch()
 
+  
+  const labelName = isShop ? "Shop Name" : "Customer Name"
+  const fieldName = isShop ? "Logo" : "Avatar"
+
+
   const signIn = () => {
     history.push("/auth/sign-in")
   }
@@ -92,8 +97,7 @@ const Login = () => {
     setIsLoading(false)
   }
 
-  const labelName = isShop ? "Shop Name" : "Customer Name"
-  const fieldName = isShop ? "Logo" : "Avatar"
+
 
   return (
     <Container className="auth-form">

@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
   Button,
   Divider,
@@ -8,6 +9,7 @@ import {
 } from "semantic-ui-react"
 import CartUser from "./CartUser"
 import { formatCurrency } from "./../helpers/number-helper"
+import ShareModal from "./ShareModal"
 
 const Cart = ({
   cart,
@@ -17,8 +19,19 @@ const Cart = ({
   loading,
   deliveryInfo,
   handleChangeDelivery,
+  cartIdHandler,
+  cartId
 }) => {
-  console.log(cart)
+
+  const shareRef = useRef(null)
+  const shareCart = async () =>{
+    await cartIdHandler();
+    if(cartId !== undefined){
+      shareRef.current.open(`http://localhost:3000/cart/${cartId}`)
+    }else{
+      await cartIdHandler();
+    } 
+  }
   const { groups, total } = cart
 
   return (
@@ -44,6 +57,14 @@ const Cart = ({
           </Label>
         </Header>
         <Button
+            content="Share"
+            labelPosition="left"
+            icon="share alternate"
+            color="green"
+            onClick={()=>shareCart()}
+            style={{ marginTop: 15, width: "100%" }}
+          />
+        <Button
           content="Place an Order"
           labelPosition="left"
           icon="thumbs up outline"
@@ -54,7 +75,8 @@ const Cart = ({
           disabled={loading}
         />
       </Segment>
-    </Sticky>
+      <ShareModal ref={shareRef} />
+    </Sticky>  
   )
 }
 

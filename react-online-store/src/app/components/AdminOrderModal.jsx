@@ -166,7 +166,7 @@ const AdminOrderModal = forwardRef((props, ref) => {
             color="red"
           />
         )}
-        {status !== "Canceled" && status !== "Delivered" && (
+        {status !== "Canceled" && status !== "Delivered" && status !== "Ready for Pickup" && (
           <Button
             content={nextBtn.label}
             labelPosition="right"

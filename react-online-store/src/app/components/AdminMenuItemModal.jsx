@@ -8,6 +8,11 @@ const AdminMenuItemModal = forwardRef((props, ref) => {
   const inputFileRef = useRef(null)
   const [img, setImg] = useState(null)
 
+  
+  const { image, name, price, itemId } = menu
+  const imgSrc = image ? `data:image/png;base64, ${image}` : null
+
+  
   useImperativeHandle(ref, () => ({
     open(item) {
       setIsOpen(true)
@@ -51,8 +56,6 @@ const AdminMenuItemModal = forwardRef((props, ref) => {
     setImg(null)
   }
 
-  const { image, name, price, itemId } = menu
-  const imgSrc = image ? `data:image/png;base64, ${image}` : null
 
   return (
     <Modal

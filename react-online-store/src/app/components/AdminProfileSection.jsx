@@ -40,10 +40,6 @@ const AdminProfileSection = () => {
     shareRef.current.open(`http://localhost:3000/store/${id}`)
   }
 
-  const copy = () => {}
-
-  const link = () => {}
-
   const updateProfile = async data => {
     data.append("PhoneNumber", authInfo.phone)
 
@@ -54,7 +50,7 @@ const AdminProfileSection = () => {
     try {
       await updateShopInfo(data)
       toastSuccess("Update Shop Infomation Successfuly")
-    } catch {}
+    } catch { }
 
     getShopsDetail(authInfo.id).then(res => {
       setShop(res)
@@ -79,7 +75,6 @@ const AdminProfileSection = () => {
             content="Copy Link"
             labelPosition="left"
             icon="linkify"
-            onClick={copy}
             color="brown"
             style={{ marginTop: 15, width: "100%" }}
           />

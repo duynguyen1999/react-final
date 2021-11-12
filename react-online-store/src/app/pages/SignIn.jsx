@@ -13,7 +13,7 @@ import {
   Icon,
   Menu,
 } from "semantic-ui-react"
-import { login } from "../../api/shop.api"
+import { doLogin } from "../../api/shop.api"
 import { useDispatch } from "react-redux"
 import { logIn } from "../store/actions/auth-action"
 
@@ -36,7 +36,7 @@ const Login = () => {
 
   const submit = async () => {
     try {
-      const res = await login(phone, isShop)
+      const res = await doLogin(phone, isShop)
 
       toastSuccess("Log in successfully")
 

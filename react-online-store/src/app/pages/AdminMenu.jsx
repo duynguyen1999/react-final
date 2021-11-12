@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import useHttp from "../hooks/useHttp"
 import {
-  addShopItem,
+  createShopItem,
   getShopsDetail,
   updateShopItem,
   deleteShopItem,
@@ -15,6 +15,7 @@ import { Divider } from "semantic-ui-react"
 import AdminMenuItemModal from "../components/AdminMenuItemModal"
 
 const AdminMenu = () => {
+
   const [menuItems, setMenu] = useState([])
   const modalRef = useRef(null)
   const authInfo = useSelector(state => state.auth)
@@ -46,13 +47,13 @@ const AdminMenu = () => {
 
     try {
       if (!data.get("ItemId")) {
-        await addShopItem(data)
+        await createShopItem(data)
         toastSuccess("Create Item successfully")
       } else {
         await updateShopItem(data)
         toastSuccess("Update Item successfully")
       }
-    } catch {}
+    } catch { }
 
     sendRequest(authInfo.id)
   }

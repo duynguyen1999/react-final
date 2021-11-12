@@ -1,12 +1,15 @@
-import { sendPostRequest } from "./base.api"
+import { sendPostRequest, sendGetRequest } from "./base.api"
 
-export const createNewCart = async (customerId, shopId) => {
+
+//post create new cart 
+export const postCreateCart = async (customerId, shopId) => {
   return await sendPostRequest(
     `${process.env.REACT_APP_API_ENDPOINT}/api/Cart/create`,
     JSON.stringify({ customerId, shopId }),
     { "Content-Type": "application/json" }
   )
 }
+
 
 export const getCurrentShopCart = async (customerId, shopId) => {
   return await sendPostRequest(
@@ -15,6 +18,11 @@ export const getCurrentShopCart = async (customerId, shopId) => {
     { "Content-Type": "application/json" }
   )
 }
+
+export const getCartByCartID = async (cartId) => {
+ return await  sendGetRequest(`${process.env.REACT_APP_API_ENDPOINT}/api/Cart/${cartId}`);
+}
+
 
 export const addCartItem = async data => {
   return await sendPostRequest(
@@ -40,7 +48,7 @@ export const submitCart = async data => {
   )
 }
 
-export const placeOrder = async data => {
+export const postOrder = async data => {
   return await sendPostRequest(
     `${process.env.REACT_APP_API_ENDPOINT}/api/Order`,
     JSON.stringify(data),

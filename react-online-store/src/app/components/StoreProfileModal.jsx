@@ -7,6 +7,10 @@ const StoreProfileModal = forwardRef((props, ref) => {
   const [img, setImg] = useState(null)
   const inputFileRef = useRef(null)
 
+  const { name, phoneNumber, image } = props.shopData
+  const imageSrc = img ? img : `data:image/png;base64, ${image}`
+
+  
   useImperativeHandle(ref, () => ({
     open() {
       setIsOpen(true)
@@ -15,7 +19,6 @@ const StoreProfileModal = forwardRef((props, ref) => {
 
   const chooseFile = e => {
     /*Selected files data can be collected here.*/
-    console.log(e.target.files)
     const fr = new FileReader()
     fr.onload = function () {
       setImg(fr.result)
@@ -44,8 +47,6 @@ const StoreProfileModal = forwardRef((props, ref) => {
     setImg(null)
   }
 
-  const { name, phoneNumber, image } = props.shopData
-  const imageSrc = img ? img : `data:image/png;base64, ${image}`
 
   return (
     <Modal

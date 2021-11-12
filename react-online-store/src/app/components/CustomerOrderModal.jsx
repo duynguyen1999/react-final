@@ -30,6 +30,9 @@ const renderNextStatusButton = status => {
       color = "green"
       label = "Complete Order"
       break
+    case "Complete Order":
+      color = "green"
+      label = "done"
     default:
       color = "orange"
       label = "Confirmed"
@@ -160,7 +163,6 @@ const CustomerOrderModal = forwardRef((props, ref) => {
         {status !== "Canceled" &&
           status !== "Confirmed" &&
           status !== "Sent To Kitchen" &&
-          status !== "Ready for Pickup" &&
           status !== null && (
             <Button
               content={nextBtn.label}

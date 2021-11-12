@@ -9,49 +9,81 @@ import { getShopsDetail } from "../../api/shop.api"
 import useToast from "../hooks/useToast"
 import { Link } from "react-router-dom"
 import {
-  createNewCart,
+  postCreateCart,
   getCurrentShopCart,
-  placeOrder,
+  postOrder,
   submitCart,
+  getCartByCartID
 } from "../../api/cart.api"
 import { deepClone } from "../helpers/common-helper"
 
 const Store = () => {
   const { id: shopId } = useParams()
+  const { cartId: cartIdShare } = useParams();
+
   const [cart, setCart] = useState({
     groups: {},
     subtotal: 0,
     discount: 0,
     total: 0,
   })
+
   const [deliveryInfo, setDelivery] = useState("")
   const authInfo = useSelector(state => state.auth)
+  const { toastSuccess } = useToast()
+  const [cartId, setCartId] = useState("");
+  const [loading, setLoading] = useState(false)
   const { data: menuInfo, sendRequest } = useHttp(getShopsDetail, true)
+
   const {
     data: cartInfo,
     sendRequest: loadCurrentShopCart,
     status: loadCartStatus,
   } = useHttp(getCurrentShopCart, true)
-  const { toastSuccess } = useToast()
-  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    sendRequest(shopId)
-    loadCurrentShopCart(authInfo.id, shopId)
-    const storedCart = localStorage.getItem(`cart_${authInfo.id}_${shopId}`)
-    if (storedCart) {
-      setCart(JSON.parse(storedCart))
+    if (cartIdShare) {
+      const cartByCartId = async () => {
+        const cartByCartId = await loadDataCartId(cartIdShare);
+        if (cartByCartId) {
+          loadCurrentShopCart(cartByCartId.customerId, cartByCartId.shopId)
+          setCart(JSON.parse(cartByCartId))
+        }
+      }
+      cartByCartId();
+
+    } else {
+      sendRequest(shopId)
+      loadCurrentShopCart(authInfo.id, shopId)
+
+      const storedCart = localStorage.getItem(`cart_${authInfo.id}_${shopId}`)
+      if (storedCart) {
+        setCart(JSON.parse(storedCart))
+      }
     }
   }, [])
 
+
   useEffect(() => {
     if (loadCartStatus === "completed" && !cartInfo) {
-      createNewCart(authInfo.id, shopId).then(() => {
+      postCreateCart(authInfo.id, shopId).then(() => {
         //reload cart
         loadCurrentShopCart(authInfo.id, shopId)
       })
     }
+
   }, [loadCartStatus, authInfo.id, shopId, cartInfo, loadCurrentShopCart])
+
+
+
+  const loadDataCartId = async (cartId) => {
+    return await getCartByCartID(cartId).then((response) => {
+      return response;
+    }).catch((error) => {
+      return error;
+    })
+  };
+
 
   const addToCart = async id => {
     const findMenu = menuInfo.items.find(i => i.itemId === id)
@@ -131,12 +163,12 @@ const Store = () => {
       deliveryInfo === null ||
       deliveryInfo === undefined
     ) {
-      await placeOrder({
+      await postOrder({
         cartId: cartInfo.cartId,
         deliveryInformation: "confirm",
       })
     } else {
-      await placeOrder({
+      await postOrder({
         cartId: cartInfo.cartId,
         deliveryInformation: deliveryInfo,
       })
@@ -149,6 +181,11 @@ const Store = () => {
     loadCurrentShopCart(authInfo.id, shopId)
     setLoading(false)
   }
+
+  const cartIdHandler = async () => {
+    setCartId(cartInfo.cartId);
+  }
+
 
   return (
     <>
@@ -165,6 +202,8 @@ const Store = () => {
           <Cart
             cart={cart}
             loading={loading}
+            cartIdHandler={cartIdHandler}
+            cartId={cartId}
             deliveryInfo={deliveryInfo}
             submitCart={handleSubmitCart}
             addItem={addToCart}

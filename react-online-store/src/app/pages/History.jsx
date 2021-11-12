@@ -12,6 +12,20 @@ import ActionCellRenderer from "../components/cellRenders/ActionCellRenderer"
 import StatusCellRenderer from "../components/cellRenders/StatusCellRenderer"
 
 const History = () => {
+
+  // changes, needs to be state
+  const [rowData, setRow] = useState([])
+  const gridHeight = window.innerHeight
+  const authInfo = useSelector(store => store.auth)
+
+  const modalRef = useRef(null)
+
+  useEffect(() => {
+    getOrderByCustomerId(authInfo.id).then(res => {
+      setRow(res.orders)
+    })
+  }, [])
+
   // never changes, so we can use useMemo
   const columnDefs = useMemo(
     () => [
@@ -47,18 +61,7 @@ const History = () => {
     []
   )
 
-  // changes, needs to be state
-  const [rowData, setRow] = useState([])
-  const gridHeight = window.innerHeight
-  const authInfo = useSelector(store => store.auth)
-
-  useEffect(() => {
-    getOrderByCustomerId(authInfo.id).then(res => {
-      setRow(res.orders)
-    })
-  }, [])
-
-  const modalRef = useRef(null)
+  
 
   const viewOrder = data => {
     if (!data) return

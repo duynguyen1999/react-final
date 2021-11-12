@@ -27,6 +27,8 @@ const Router = () => {
         <Template exact path="/store" component={Stores} />
         <Template exact path="/history" component={History} />
         <Template exact path="/store/:id" component={Store} />
+        <Template exact path="/cart/:cartId" component={Store} />
+
 
         <Template exact path="/auth/sign-in" component={SignIn} />
         <Template exact path="/auth/sign-up" component={SignUp} />
