@@ -15,11 +15,11 @@ const CartItem = ({ item, addItem, removeITem }) => {
         </Item.Meta>
         <Item.Extra>
           <Button.Group size="tiny" style={{ width: "100%" }}>
-            <Button negative onClick={() => removeITem(itemId)}>
+            <Button basic negative onClick={() => removeITem(itemId)}>
               <Icon name="minus" />
             </Button>
             <Button.Or />
-            <Button positive onClick={() => addItem(itemId)}>
+            <Button basic positive onClick={() => addItem(itemId)}>
               <Icon name="plus" />
             </Button>
           </Button.Group>

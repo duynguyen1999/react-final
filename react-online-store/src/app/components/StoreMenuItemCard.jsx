@@ -41,7 +41,7 @@ const StoreMenuItemCard = ({ item, viewOrder, addToCart, deleteItem }) => {
               content="Add to Cart"
               icon="cart plus"
               labelPosition="right"
-              color="grey"
+              color="green"
               title="Add to Cart"
               onClick={() => addToCart(itemId)}
               style={{ width: "100%" }}
