@@ -44,12 +44,9 @@ const Store = () => {
   useEffect(() => {
     if (cartIdShare) {
       const cartByCartId = async () => {
-        console.log(`loadDataCartId`, cartIdShare)
         const cartByCartId = await loadDataCartId(cartIdShare)
         if (cartByCartId) {
-          console.log(`loadDataCartId_response`, cartByCartId)
           loadCurrentShopCart(cartByCartId.customerId, cartByCartId.shopId)
-          // console.log(`response`, cartByCartId)
           setCart(cartByCartId)
         }
       }
@@ -185,8 +182,6 @@ const Store = () => {
   const cartIdHandler = async () => {
     setCartId(cartInfo.cartId)
   }
-
-  console.log("cart", cart)
 
   return (
     <>
