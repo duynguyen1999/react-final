@@ -13,13 +13,13 @@ import {
   getCurrentShopCart,
   postOrder,
   submitCart,
-  getCartByCartID
+  getCartByCartID,
 } from "../api/cart.api"
 import { deepClone } from "../helpers/common.helper"
 
 const Store = () => {
   const { id: shopId } = useParams()
-  const { cartId: cartIdShare } = useParams();
+  const { cartId: cartIdShare } = useParams()
 
   const [cart, setCart] = useState({
     groups: {},
@@ -31,7 +31,7 @@ const Store = () => {
   const [deliveryInfo, setDelivery] = useState("")
   const authInfo = useSelector(state => state.auth)
   const { toastSuccess } = useToast()
-  const [cartId, setCartId] = useState("");
+  const [cartId, setCartId] = useState("")
   const [loading, setLoading] = useState(false)
   const { data: menuInfo, sendRequest } = useHttp(getShopsDetail, true)
 
@@ -44,14 +44,17 @@ const Store = () => {
   useEffect(() => {
     if (cartIdShare) {
       const cartByCartId = async () => {
-        const cartByCartId = await loadDataCartId(cartIdShare);
+        console.log(`loadDataCartId`, cartIdShare)
+        const cartByCartId = await loadDataCartId(cartIdShare)
         if (cartByCartId) {
+          console.log(`loadDataCartId_response`, cartByCartId)
           loadCurrentShopCart(cartByCartId.customerId, cartByCartId.shopId)
-          setCart(JSON.parse(cartByCartId))
+          // console.log(`response`, cartByCartId)
+          setCart(cartByCartId)
         }
       }
-      cartByCartId();
 
+      cartByCartId()
     } else {
       sendRequest(shopId)
       loadCurrentShopCart(authInfo.id, shopId)
@@ -63,7 +66,6 @@ const Store = () => {
     }
   }, [])
 
-
   useEffect(() => {
     if (loadCartStatus === "completed" && !cartInfo) {
       postCreateCart(authInfo.id, shopId).then(() => {
@@ -71,19 +73,17 @@ const Store = () => {
         loadCurrentShopCart(authInfo.id, shopId)
       })
     }
-
   }, [loadCartStatus, authInfo.id, shopId, cartInfo, loadCurrentShopCart])
 
-
-
-  const loadDataCartId = async (cartId) => {
-    return await getCartByCartID(cartId).then((response) => {
-      return response;
-    }).catch((error) => {
-      return error;
-    })
-  };
-
+  const loadDataCartId = async cartId => {
+    return await getCartByCartID(cartId)
+      .then(response => {
+        return response
+      })
+      .catch(error => {
+        return error
+      })
+  }
 
   const addToCart = async id => {
     const findMenu = menuInfo.items.find(i => i.itemId === id)
@@ -183,9 +183,10 @@ const Store = () => {
   }
 
   const cartIdHandler = async () => {
-    setCartId(cartInfo.cartId);
+    setCartId(cartInfo.cartId)
   }
 
+  console.log("cart", cart)
 
   return (
     <>
