@@ -1,5 +1,5 @@
 import { Button, Card, Icon, Image } from "semantic-ui-react"
-import { formatCurrency } from "../helpers/number-helper"
+import { formatCurrency } from "../helpers/number.helper"
 
 const StoreMenuItemCard = ({ item, viewOrder, addToCart, deleteItem }) => {
   const { image, name, price, itemId, isActive } = item

@@ -3,7 +3,6 @@ import { useState } from "react"
 import useToast from "./../hooks/useToast"
 import {
   Button,
-  Image,
   Form,
   Grid,
   Segment,
@@ -13,10 +12,10 @@ import {
   Icon,
   Menu,
 } from "semantic-ui-react"
-import { registerShop } from "../../api/shop.api"
+import { registerShop } from "../api/shop.api"
 import { useDispatch } from "react-redux"
 import { logIn } from "../store/actions/auth-action"
-import { registerCustomer } from "../../api/customer.api"
+import { registerCustomer } from "../api/customer.api"
 
 const Login = () => {
   const history = useHistory()

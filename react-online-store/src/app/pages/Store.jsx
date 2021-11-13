@@ -5,7 +5,7 @@ import { Grid, Header } from "semantic-ui-react"
 import Cart from "../components/Cart"
 import { useSelector } from "react-redux"
 import useHttp from "../hooks/useHttp"
-import { getShopsDetail } from "../../api/shop.api"
+import { getShopsDetail } from "../api/shop.api"
 import useToast from "../hooks/useToast"
 import { Link } from "react-router-dom"
 import {
@@ -14,8 +14,8 @@ import {
   postOrder,
   submitCart,
   getCartByCartID
-} from "../../api/cart.api"
-import { deepClone } from "../helpers/common-helper"
+} from "../api/cart.api"
+import { deepClone } from "../helpers/common.helper"
 
 const Store = () => {
   const { id: shopId } = useParams()

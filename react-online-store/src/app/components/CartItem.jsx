@@ -1,5 +1,5 @@
 import { Button, Icon, Item } from "semantic-ui-react"
-import { formatCurrency } from "./../helpers/number-helper"
+import { formatCurrency } from "./../helpers/number.helper"
 
 const CartItem = ({ item, addItem, removeItem }) => {
   const { itemName, price, amount, itemId, image } = item

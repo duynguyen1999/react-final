@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react"
-import { Button, Grid, Image, Segment } from "semantic-ui-react"
+import { Button, Grid } from "semantic-ui-react"
 import { useSelector } from "react-redux"
 import { useShortenUrl } from "react-shorten-url"
 import StoreInformationLabel from "./StoreInformationLabel"
 import useToast from "./../hooks/useToast"
-import { getShopsDetail } from "../../api/shop.api"
-import { updateShopInfo } from "./../../api/shop.api"
+import { getShopsDetail } from "../api/shop.api"
+import { updateShopInfo } from "../api/shop.api"
 import ShareModal from "./ShareModal"
 import StoreProfileModal from "./StoreProfileModal"
 
@@ -50,7 +50,7 @@ const AdminProfileSection = () => {
     try {
       await updateShopInfo(data)
       toastSuccess("Update Shop Infomation Successfuly")
-    } catch { }
+    } catch {}
 
     getShopsDetail(authInfo.id).then(res => {
       setShop(res)

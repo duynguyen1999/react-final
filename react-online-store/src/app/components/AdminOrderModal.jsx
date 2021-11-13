@@ -1,9 +1,9 @@
 import { forwardRef, useImperativeHandle, useMemo, useState } from "react"
-import { Button, Container, Grid, Modal, Segment } from "semantic-ui-react"
+import { Button, Container, Grid, Modal } from "semantic-ui-react"
 import dayjs from "dayjs"
 import { AgGridReact } from "ag-grid-react/lib/agGridReact"
 import OrderInformationField from "./OrderInformationField"
-import { formatCurrency } from "../helpers/number-helper"
+import { formatCurrency } from "../helpers/number.helper"
 
 const priceRender = params => {
   return formatCurrency(params.value)
@@ -166,15 +166,17 @@ const AdminOrderModal = forwardRef((props, ref) => {
             color="red"
           />
         )}
-        {status !== "Canceled" && status !== "Delivered" && status !== "Ready for Pickup" && (
-          <Button
-            content={nextBtn.label}
-            labelPosition="right"
-            icon="checkmark"
-            onClick={() => changeOrderStatus()}
-            color={nextBtn.color}
-          />
-        )}
+        {status !== "Canceled" &&
+          status !== "Delivered" &&
+          status !== "Ready for Pickup" && (
+            <Button
+              content={nextBtn.label}
+              labelPosition="right"
+              icon="checkmark"
+              onClick={() => changeOrderStatus()}
+              color={nextBtn.color}
+            />
+          )}
       </Modal.Actions>
     </Modal>
   )

@@ -1,9 +1,8 @@
-import { useHistory, useRouteMatch } from "react-router"
+import { useHistory } from "react-router"
 import { useState } from "react"
 import useToast from "./../hooks/useToast"
 import {
   Button,
-  Image,
   Form,
   Grid,
   Segment,
@@ -13,7 +12,7 @@ import {
   Icon,
   Menu,
 } from "semantic-ui-react"
-import { doLogin } from "../../api/shop.api"
+import { doLogin } from "../api/shop.api"
 import { useDispatch } from "react-redux"
 import { logIn } from "../store/actions/auth-action"
 

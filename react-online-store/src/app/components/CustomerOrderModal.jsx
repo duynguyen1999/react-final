@@ -3,7 +3,7 @@ import { Button, Container, Grid, Modal, Segment } from "semantic-ui-react"
 import dayjs from "dayjs"
 import { AgGridReact } from "ag-grid-react/lib/agGridReact"
 import OrderInformationField from "./OrderInformationField"
-import { formatCurrency } from "../helpers/number-helper"
+import { formatCurrency } from "../helpers/number.helper"
 
 const priceRender = params => {
   return formatCurrency(params.value)

@@ -8,7 +8,7 @@ import {
   getShopsDetail,
   updateShopItem,
   deleteShopItem,
-} from "../../api/shop.api"
+} from "../api/shop.api"
 import useToast from "../hooks/useToast"
 import AdminProfileSection from "../components/AdminProfileSection"
 import { Divider } from "semantic-ui-react"

@@ -1,6 +1,6 @@
 import { Modal, Button, Image, Form, Icon, Label } from "semantic-ui-react"
 import { forwardRef, useImperativeHandle, useRef, useState } from "react"
-import { dataURIToBlob } from "../helpers/common-helper"
+import { dataURIToBlob } from "../helpers/common.helper"
 
 const AdminMenuItemModal = forwardRef((props, ref) => {
   const [isOpen, setIsOpen] = useState(false)

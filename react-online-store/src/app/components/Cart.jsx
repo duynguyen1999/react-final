@@ -8,7 +8,7 @@ import {
   Sticky,
 } from "semantic-ui-react"
 import CartUser from "./CartUser"
-import { formatCurrency } from "./../helpers/number-helper"
+import { formatCurrency } from "./../helpers/number.helper"
 import ShareModal from "./ShareModal"
 
 const Cart = ({

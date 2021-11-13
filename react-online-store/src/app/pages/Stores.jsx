@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getShops } from "../../api/shop.api";
+import { getShops } from "../api/shop.api";
 import StoreList from "../components/StoreList"
 
 const DashboardGuest = () => {
