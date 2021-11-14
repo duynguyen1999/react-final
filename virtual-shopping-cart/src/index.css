@@ -1,0 +1,47 @@
+.fl-right {
+  float: right;
+}
+
+.ui {
+  font-size: 100%;
+  font-family: "Inter", sans-serif !important;
+}
+
+.ui.label {
+  line-height: 1.5rem;
+}
+
+.info-field {
+  margin-top: 5px;
+}
+
+.info-field h5 {
+  margin-bottom: 5px;
+}
+
+.admin-sub-header .ui.breadcrumb {
+  font-size: 15px;
+  padding-top: 15px;
+}
+
+.admin-sub-header button {
+  float: right;
+}
+
+.admin-sub-header {
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.menu-modify-modal .description,
+.store-modify-modal .description {
+  min-width: 70% !important;
+}
+
+.total {
+  font-weight: bold;
+}
+
+.auth-form {
+  margin-top: 5%;
+}
